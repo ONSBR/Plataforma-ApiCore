@@ -1,0 +1,9 @@
+{
+    "app": {
+        "type": "domain",
+        "name": "Plataforma.ApiCore",
+        "version": "0.0.1",
+        "description": "Esta é a API para centralizar varias configuracoes das apps da plataforma",
+        "author": "Philippe Moneda"
+    }
+}
