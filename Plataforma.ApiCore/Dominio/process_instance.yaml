@@ -2,9 +2,9 @@ process_instance:
   process_id:
     - uuid
   start_execution:
-    - time
+    - date
   end_execution:
-    - time
+    - date
   reference_date:
     - date
   status:

@@ -3,7 +3,7 @@ process:
     - uuid
   name:
     - string
-  relativePath:
+  relative_path:
     - string
   deploy_date:
-    - time
+    - date

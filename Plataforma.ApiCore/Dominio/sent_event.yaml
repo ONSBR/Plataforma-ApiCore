@@ -6,9 +6,9 @@ sent_event:
   operation_instance_id:
     - uuid
   event_date:
-    - time
+    - date
   reference_date:
-    - time
+    - date
   payload:
     - blob
   is_reproduction:

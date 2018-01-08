@@ -12,3 +12,131 @@ system:
       name: :name
     byId:
       id: :id
+process:
+  model: process
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+    relativePath:
+      column: relative_path
+    deployDate:
+      column: deploy_date
+  filters:
+    bySystemId:
+      systemId: :systemId
+    byId:
+      id: :id
+
+presentation:
+  model: presentation
+  fields:
+    name:
+      column: name
+    systemId:
+      column: system_id
+    url:
+      column: url
+  filters:
+    bySystemId:
+      systemId: :systemId
+    byId:
+      id: :id
+
+operation:
+  model: operation
+  fields:
+    processId:
+      column: process_id
+    method:
+      column: method
+    file:
+      column: file
+  filters:
+    byProcessId:
+      processId: :processId
+    byId:
+      id: :id
+
+processInstance:
+  model: process_instance
+  fields:
+    processId:
+      column: process_id
+    startExecution:
+      column: start_execution
+    endExecution:
+      column: end_execution
+    referenceDate:
+      column: reference_date
+    status:
+      column: status
+  filters:
+    byProcessId:
+      processId: :processId
+    byId:
+      id: :id
+
+operationInstance:
+  model: operation_instance
+  fields:
+    processInstanceId:
+      column: process_instance_id
+    operationId:
+      column: operation_id
+    status:
+      column: status
+    mustCommit:
+      column: must_commit
+  filters:
+    byProcessInstanceId:
+      processInstanceId: :processInstanceId
+    byOperationId:
+      operationId: :operationId
+    byId:
+      id: :id
+
+event:
+  model: event
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+  filters:
+    bySystemId:
+      systemId: :systemId
+    byId:
+      id: :id
+    byName:
+      name: :name
+
+presentationInstance:
+  model: presentation_instance
+  fields:
+    presentationId:
+      column: presentation_id
+  filters:
+    byId:
+      id: :id
+    byPresentationId:
+      presentationId: :presentationId
+
+sentEvent:
+  model: sent_event
+  fields:
+    operationInstanceId:
+      column: operation_instance_id
+    eventId:
+      column: event_id
+    presentationInstanceId:
+      column: presentation_instance_id
+    eventDate:
+      column: event_date
+    referenceDate:
+      column: reference_date
+    payload:
+      column: payload
+    isReproduction:
+      column: is_reproduction
