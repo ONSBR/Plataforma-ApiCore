@@ -1,0 +1,9 @@
+operation_instance:
+  operation_id:
+    - uuid
+  process_instance_id:
+    - uuid
+  status:
+    - string
+  must_commit:
+    - boolean

@@ -1,0 +1,17 @@
+sent_event:
+  event_id:
+    - uuid
+  presentation_instance_id:
+    - uuid
+  operation_instance_id:
+    - uuid
+  event_date:
+    - time
+  reference_date:
+    - time
+  payload:
+    - blob
+  is_reproduction:
+    - boolean
+
+  

@@ -1,0 +1,11 @@
+process_instance:
+  process_id:
+    - uuid
+  start_execution:
+    - time
+  end_execution:
+    - time
+  reference_date:
+    - date
+  status:
+    - string

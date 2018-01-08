@@ -1,0 +1,7 @@
+operation:
+  process_id:
+    - uuid
+  method:
+    - string
+  file:
+    - string

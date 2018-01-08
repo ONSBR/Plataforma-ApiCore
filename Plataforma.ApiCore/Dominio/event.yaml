@@ -1,0 +1,5 @@
+event:
+  system_id:
+    - uuid
+  name:
+    - string

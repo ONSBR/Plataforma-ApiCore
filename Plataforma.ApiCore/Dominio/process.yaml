@@ -1,0 +1,9 @@
+process:
+  system_id:
+    - uuid
+  name:
+    - string
+  relativePath:
+    - string
+  deploy_date:
+    - time

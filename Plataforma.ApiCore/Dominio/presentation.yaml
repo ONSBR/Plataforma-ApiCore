@@ -1,0 +1,7 @@
+presentation:
+  system_id:
+    - uuid
+  name:
+    - string
+  url:
+    - string
