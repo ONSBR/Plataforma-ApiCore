@@ -1,0 +1,14 @@
+system:
+  model: system
+  fields:
+    name:
+      column: name
+    description:
+      column: description
+    version:
+      column: version
+  filters:
+    byName:
+      name: :name
+    byId:
+      id: :id
