@@ -23,6 +23,10 @@ process:
       column: relative_path
     deployDate:
       column: deploy_date
+    tag:
+      column: tag
+    image:
+      column: image_name
   filters:
     bySystemId:
       systemId: :systemId
