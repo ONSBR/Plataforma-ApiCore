@@ -10,7 +10,7 @@ sent_event:
   reference_date:
     - date
   payload:
-    - blob
+    - text
   is_reproduction:
     - boolean
 
