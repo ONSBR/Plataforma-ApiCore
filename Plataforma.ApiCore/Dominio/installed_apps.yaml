@@ -7,3 +7,5 @@ installed_apps:
     - string
   port:
     - integer
+  type:
+    - string

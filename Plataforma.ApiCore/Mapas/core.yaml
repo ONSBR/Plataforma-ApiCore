@@ -138,6 +138,8 @@ installedApps:
       column: port
     name:
       column: name
+    type:
+      column: type
   filters:
     bySystemId:
       systemId: :systemId
