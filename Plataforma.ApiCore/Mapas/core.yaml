@@ -127,6 +127,25 @@ presentationInstance:
     byPresentationId:
       presentationId: :presentationId
 
+installedApps:
+  model: installed_apps
+  fields:
+    systemId:
+      column: system_id
+    host:
+      column: host
+    port:
+      column: port
+    name:
+      column: name
+  filters:
+    bySystemId:
+      systemId: :systemId
+    byId:
+      id: :id
+    byName:
+      name: :name
+
 sentEvent:
   model: sent_event
   fields:

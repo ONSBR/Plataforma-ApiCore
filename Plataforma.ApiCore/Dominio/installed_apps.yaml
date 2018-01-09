@@ -1,0 +1,9 @@
+installed_apps:
+  system_id:
+    - uuid
+  host:
+    - string
+  name:
+    - string
+  port:
+    - integer
