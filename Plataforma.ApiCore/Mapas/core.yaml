@@ -131,6 +131,12 @@ event:
       column: name
     processId:
       column: process_id
+    processName:
+      column: process_name
+    direction:
+      column: direction
+    operationId:
+      column: operation_id
   filters:
     bySystemId:
       systemId: :systemId

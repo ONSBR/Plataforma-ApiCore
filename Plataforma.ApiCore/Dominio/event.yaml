@@ -5,3 +5,9 @@ event:
     - string
   process_id:
     - uuid
+  process_name:
+    - string
+  direction:
+    - string
+  operation_id:
+    - uuid
