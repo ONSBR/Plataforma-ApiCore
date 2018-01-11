@@ -29,9 +29,9 @@ map:
     byId:
       id: :id
     byProcessId:
-      id: :processId
+      processId: :processId
     bySystemId:
-      id: :systemId
+      systemId: :systemId
 
 process:
   model: process
