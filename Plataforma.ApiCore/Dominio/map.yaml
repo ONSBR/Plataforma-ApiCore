@@ -1,0 +1,9 @@
+map:
+  system_id:
+    - uuid
+  process_id:
+    - uuid
+  name:
+    - string
+  content:
+    - text
