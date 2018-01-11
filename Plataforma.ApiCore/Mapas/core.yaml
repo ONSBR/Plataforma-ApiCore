@@ -12,6 +12,27 @@ system:
       name: :name
     byId:
       id: :id
+map:
+  model: map
+  fields:
+    name:
+      column: name
+    systemId:
+      column: system_id
+    processId:
+      column: process_id
+    content:
+      column: content
+  filters:
+    byName:
+      name: :name
+    byId:
+      id: :id
+    byProcessId:
+      id: :id
+    bySystemId:
+      id: :id
+      
 process:
   model: process
   fields:
