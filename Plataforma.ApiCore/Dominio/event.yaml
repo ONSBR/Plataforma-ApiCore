@@ -3,3 +3,5 @@ event:
     - uuid
   name:
     - string
+  process_id:
+    - uuid

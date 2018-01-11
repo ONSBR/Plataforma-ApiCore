@@ -32,7 +32,7 @@ map:
       id: :id
     bySystemId:
       id: :id
-      
+
 process:
   model: process
   fields:
@@ -129,6 +129,8 @@ event:
       column: system_id
     name:
       column: name
+    processId:
+      column: process_id
   filters:
     bySystemId:
       systemId: :systemId
@@ -136,6 +138,8 @@ event:
       id: :id
     byName:
       name: :name
+    byProcessId:
+      processId: :processId
 
 presentationInstance:
   model: presentation_instance
