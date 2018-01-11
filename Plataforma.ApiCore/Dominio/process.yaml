@@ -9,6 +9,5 @@ process:
     - date
   tag:
     - string
-  image_name:
+  image_id:
     - string
-  
