@@ -1,13 +1,13 @@
 event:
-  system_id:
-    - uuid
   name:
-    - string
-  process_id:
-    - uuid
-  process_name:
     - string
   direction:
     - string
   operation_id:
+    - uuid
+  process_id:
+    - uuid
+  system_id:
+    - uuid
+  presentation_id:
     - uuid

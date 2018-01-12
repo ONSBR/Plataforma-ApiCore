@@ -1,6 +1,4 @@
 process:
-  system_id:
-    - uuid
   name:
     - string
   relative_path:
@@ -11,3 +9,5 @@ process:
     - string
   image_id:
     - string
+  system_id:
+    - uuid

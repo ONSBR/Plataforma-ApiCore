@@ -1,7 +1,9 @@
 operation:
-  process_id:
-    - uuid
   method:
     - string
   file:
     - string
+  process_id:
+    - uuid
+  system_id:
+    - uuid

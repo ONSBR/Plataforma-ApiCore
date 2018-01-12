@@ -4,7 +4,7 @@ sent_event:
   presentation_instance_id:
     - uuid
   operation_instance_id:
-    - uuid
+    - uuid  
   event_date:
     - date
   reference_date:

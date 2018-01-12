@@ -1,6 +1,4 @@
 process_instance:
-  process_id:
-    - uuid
   start_execution:
     - date
   end_execution:
@@ -9,3 +7,7 @@ process_instance:
     - date
   status:
     - string
+  process_id:
+    - uuid
+  system_id:
+    - uuid
