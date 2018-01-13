@@ -158,7 +158,7 @@ presentationInstance:
     byPresentationId:
       presentationId: :presentationId
 
-installedApps:
+installedApp:
   model: installed_apps
   fields:
     systemId:
