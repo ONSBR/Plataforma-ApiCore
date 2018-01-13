@@ -178,6 +178,13 @@ installedApps:
       id: :id
     byName:
       name: :name
+    bySystemIdAndType:
+      $and:
+        - systemId:
+            $eq: :systemId
+        - type:
+            $eq: :type
+    
 
 sentEvent:
   model: sent_event
