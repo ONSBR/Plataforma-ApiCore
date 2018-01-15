@@ -72,10 +72,12 @@ presentation:
 operation:
   model: operation
   fields:
+    systemId:
+      column: system_id
     processId:
       column: process_id
-    method:
-      column: method
+    name:
+      column: name
     event:
       column: event_name
     container:
