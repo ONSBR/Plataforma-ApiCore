@@ -135,8 +135,6 @@ event:
       column: direction
     operationId:
       column: operation_id
-    operationName:
-      column: operation_name
   filters:
     bySystemId:
       systemId: :systemId
