@@ -130,9 +130,7 @@ event:
     name:
       column: name
     processId:
-      column: process_id
-    processName:
-      column: process_name
+      column: process_id    
     direction:
       column: direction
     operationId:
