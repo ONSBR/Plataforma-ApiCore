@@ -90,7 +90,7 @@ operation:
     byId:
       id: :id
     byEvent:
-      event: :event
+      event_in: :event
       
 
 processInstance:
