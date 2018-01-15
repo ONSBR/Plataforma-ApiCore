@@ -78,8 +78,10 @@ operation:
       column: process_id
     name:
       column: name
-    event:
-      column: event_name
+    event_in:
+      column: event_in
+    event_out: 
+      column: event_out
     container:
       column: container
   filters:
