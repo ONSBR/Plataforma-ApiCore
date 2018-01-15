@@ -11,3 +11,5 @@ event:
     - uuid
   presentation_id:
     - uuid
+  operation_name:
+    - string
