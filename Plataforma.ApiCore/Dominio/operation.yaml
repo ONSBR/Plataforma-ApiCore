@@ -7,3 +7,5 @@ operation:
     - uuid
   system_id:
     - uuid
+  event_name:
+    - string
