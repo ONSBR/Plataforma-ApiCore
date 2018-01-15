@@ -78,6 +78,8 @@ operation:
       column: method
     event:
       column: event_name
+    container:
+      column: container
   filters:
     byProcessId:
       processId: :processId
@@ -85,6 +87,7 @@ operation:
       id: :id
     byEvent:
       event: :event
+      
 
 processInstance:
   model: process_instance
