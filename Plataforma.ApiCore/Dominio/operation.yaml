@@ -5,7 +5,9 @@ operation:
     - uuid
   system_id:
     - uuid
-  event_name:
+  event_in:
+    - string
+  event_out:
     - string
   container:
     - string
