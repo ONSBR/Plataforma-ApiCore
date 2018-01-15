@@ -1,11 +1,11 @@
 operation:
-  method:
-    - string
-  file:
-    - string
+  name:
+    - string  
   process_id:
     - uuid
   system_id:
     - uuid
   event_name:
+    - string
+  container:
     - string
