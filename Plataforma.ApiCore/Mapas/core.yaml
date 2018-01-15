@@ -76,13 +76,15 @@ operation:
       column: process_id
     method:
       column: method
-    file:
-      column: file
+    event:
+      column: event_name
   filters:
     byProcessId:
       processId: :processId
     byId:
       id: :id
+    byEvent:
+      event: :event
 
 processInstance:
   model: process_instance
