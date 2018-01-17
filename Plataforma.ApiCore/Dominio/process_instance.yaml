@@ -11,3 +11,5 @@ process_instance:
     - uuid
   system_id:
     - uuid
+  container:
+    - string

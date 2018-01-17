@@ -80,7 +80,7 @@ operation:
       column: name
     event_in:
       column: event_in
-    event_out: 
+    event_out:
       column: event_out
     container:
       column: container
@@ -91,7 +91,7 @@ operation:
       id: :id
     byEvent:
       event_in: :event
-      
+
 
 processInstance:
   model: process_instance
@@ -106,6 +106,8 @@ processInstance:
       column: reference_date
     status:
       column: status
+    container:
+      column: container
   filters:
     byProcessId:
       processId: :processId
@@ -139,7 +141,7 @@ event:
     name:
       column: name
     processId:
-      column: process_id    
+      column: process_id
     direction:
       column: direction
     operationId:
@@ -191,7 +193,7 @@ installedApp:
             $eq: :systemId
         - type:
             $eq: :type
-    
+
 
 sentEvent:
   model: sent_event
