@@ -84,6 +84,8 @@ operation:
       column: event_out
     container:
       column: container
+    commit:
+      column: commit
   filters:
     byProcessId:
       processId: :processId

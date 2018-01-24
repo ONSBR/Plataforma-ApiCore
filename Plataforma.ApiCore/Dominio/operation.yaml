@@ -1,6 +1,6 @@
 operation:
   name:
-    - string  
+    - string
   process_id:
     - uuid
   system_id:
@@ -11,3 +11,5 @@ operation:
     - string
   container:
     - string
+  commit:
+    - boolean
