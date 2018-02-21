@@ -4,7 +4,7 @@ process:
   relative_path:
     - string
   deploy_date:
-    - date
+    - datetime
   tag:
     - string
   image_id:

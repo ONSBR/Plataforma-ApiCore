@@ -47,14 +47,10 @@ map:
     content:
       column: content
   filters:
-    byName:
-      name: :name
-    byId:
-      id: :id
-    byProcessId:
-      processId: :processId
-    bySystemId:
-      systemId: :systemId
+    byName: "name = :name"
+    byId: "id = :id"
+    byProcessId: "process_id = :processId"
+    bySystemId: "system_id = :systemId"
 
 process:
   model: process
@@ -72,10 +68,8 @@ process:
     image:
       column: image_id
   filters:
-    bySystemId:
-      systemId: :systemId
-    byId:
-      id: :id
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
 
 presentation:
   model: presentation
@@ -87,10 +81,8 @@ presentation:
     url:
       column: url
   filters:
-    bySystemId:
-      systemId: :systemId
-    byId:
-      id: :id
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
 
 operation:
   model: operation
@@ -110,12 +102,9 @@ operation:
     commit:
       column: commit
   filters:
-    byProcessId:
-      processId: :processId
-    byId:
-      id: :id
-    byEvent:
-      event_in: :event
+    byProcessId: "process_id = :processId"
+    byId: "id = :id"
+    byEvent: "event_in = :event"
 
 
 processInstance:
@@ -157,12 +146,9 @@ operationInstance:
     mustCommit:
       column: must_commit
   filters:
-    byProcessInstanceId:
-      processInstanceId: :processInstanceId
-    byOperationId:
-      operationId: :operationId
-    byId:
-      id: :id
+    byProcessInstanceId: " process_instance_id = :processInstanceId"
+    byOperationId: "operation_id = :operationId"
+    byId: "id = :id"
 
 event:
   model: event
@@ -178,14 +164,10 @@ event:
     operationId:
       column: operation_id
   filters:
-    bySystemId:
-      systemId: :systemId
-    byId:
-      id: :id
-    byName:
-      name: :name
-    byProcessId:
-      processId: :processId
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+    byName: "name = :name"
+    byProcessId: "process_id = :processId"
 
 presentationInstance:
   model: presentation_instance
@@ -193,10 +175,8 @@ presentationInstance:
     presentationId:
       column: presentation_id
   filters:
-    byId:
-      id: :id
-    byPresentationId:
-      presentationId: :presentationId
+    byId: "id = :id"
+    byPresentationId: "presentation_id = :presentationId"
 
 installedApp:
   model: installed_apps
@@ -212,18 +192,10 @@ installedApp:
     type:
       column: type
   filters:
-    bySystemId:
-      systemId: :systemId
-    byId:
-      id: :id
-    byName:
-      name: :name
-    bySystemIdAndType:
-      $and:
-        - systemId:
-            $eq: :systemId
-        - type:
-            $eq: :type
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+    byName: "name = :name"
+    bySystemIdAndType: "system_id = :systemId and type = :type"
 
 
 sentEvent:
