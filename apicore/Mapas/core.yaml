@@ -12,6 +12,25 @@ system:
       name: :name
     byId:
       id: :id
+
+
+reproduction:
+ model: reproduction
+ fields:
+   original_id:
+     column: original_instance_id
+   instance_id:
+     column: instance_id
+   owner:
+     column: owner
+   start_date:
+     column: execution_start_date
+ filters:
+   byOriginal: "original_instance_id = :original"
+   byInstance: "instance_id = :instance"
+   byOwner: "owner = :owner"
+
+
 map:
   model: map
   fields:
