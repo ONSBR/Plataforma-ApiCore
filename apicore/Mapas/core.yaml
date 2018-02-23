@@ -23,6 +23,10 @@ reproduction:
      column: instance_id
    owner:
      column: owner
+   systemId:
+     column: system_id
+   processId:
+     column: process_id
    start_date:
      column: execution_start_date
  filters:
