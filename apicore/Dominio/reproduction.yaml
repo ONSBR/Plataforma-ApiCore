@@ -1,8 +1,12 @@
 reproduction:
+  system_id:
+    - uuid
+  process_id:
+    - uuid
   original_instance_id:
-    - string
+    - uuid
   instance_id:
-    - string
+    - uuid
   owner:
     - string
   execution_start_date:
