@@ -10,6 +10,6 @@ reproduction:
   owner:
     - string
   execution_start_date:
-    - datetime
+    - date
 
 
