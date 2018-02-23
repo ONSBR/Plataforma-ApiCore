@@ -100,6 +100,8 @@ processInstance:
   fields:
     processId:
       column: process_id
+    systemId:
+      column: system_id
     startExecution:
       column: start_execution
     endExecution:
@@ -115,6 +117,8 @@ processInstance:
       processId: :processId
     byId:
       id: :id
+    bySystemId:
+      systemId: :systemId
 
 operationInstance:
   model: operation_instance
