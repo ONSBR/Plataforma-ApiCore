@@ -112,6 +112,8 @@ processInstance:
       column: status
     container:
       column: container
+    origin_event_name:
+      column: origin_event_name
   filters:
     byProcessId:
       processId: :processId

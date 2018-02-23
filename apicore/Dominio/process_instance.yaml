@@ -9,6 +9,8 @@ process_instance:
     - string
   process_id:
     - uuid
+  origin_event_name:
+    - string
   system_id:
     - uuid
   container:
