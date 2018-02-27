@@ -8,10 +8,8 @@ system:
     version:
       column: version
   filters:
-    byName:
-      name: :name
-    byId:
-      id: :id
+    byName: "name = :name"
+    byId: "id = :id"
 
 
 reproduction:
@@ -126,12 +124,9 @@ processInstance:
     origin_event_name:
       column: origin_event_name
   filters:
-    byProcessId:
-      processId: :processId
-    byId:
-      id: :id
-    bySystemId:
-      systemId: :systemId
+    byProcessId: "process_id = :processId"
+    byId: "id = :id"
+    bySystemId: "system_id = :systemId"
 
 operationInstance:
   model: operation_instance
@@ -196,21 +191,3 @@ installedApp:
     byName: "name = :name"
     bySystemIdAndType: "system_id = :systemId and type = :type"
 
-
-sentEvent:
-  model: sent_event
-  fields:
-    operationInstanceId:
-      column: operation_instance_id
-    eventId:
-      column: event_id
-    presentationInstanceId:
-      column: presentation_instance_id
-    eventDate:
-      column: event_date
-    referenceDate:
-      column: reference_date
-    payload:
-      column: payload
-    isReproduction:
-      column: is_reproduction
