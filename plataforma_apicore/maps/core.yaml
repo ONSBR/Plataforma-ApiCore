@@ -1,0 +1,193 @@
+system:
+  model: system
+  fields:
+    name:
+      column: name
+    description:
+      column: description
+    version:
+      column: version
+  filters:
+    byName: "name = :name"
+    byId: "id = :id"
+
+
+reproduction:
+ model: reproduction
+ fields:
+   original_id:
+     column: original_instance_id
+   instance_id:
+     column: instance_id
+   owner:
+     column: owner
+   systemId:
+     column: system_id
+   processId:
+     column: process_id
+   start_date:
+     column: execution_start_date
+ filters:
+   byOriginal: "original_instance_id = :original"
+   byInstance: "instance_id = :instance"
+   byOwner: "owner = :owner"
+
+map:
+  model: map
+  fields:
+    name:
+      column: name
+    systemId:
+      column: system_id
+    processId:
+      column: process_id
+    content:
+      column: content
+  filters:
+    byName: "name = :name"
+    byId: "id = :id"
+    byProcessId: "process_id = :processId"
+    bySystemId: "system_id = :systemId"
+
+process:
+  model: process
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+    relativePath:
+      column: relative_path
+    deployDate:
+      column: deploy_date
+    tag:
+      column: tag
+    image:
+      column: image_id
+  filters:
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+
+presentation:
+  model: presentation
+  fields:
+    name:
+      column: name
+    systemId:
+      column: system_id
+    url:
+      column: url
+  filters:
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+
+operation:
+  model: operation
+  fields:
+    systemId:
+      column: system_id
+    processId:
+      column: process_id
+    name:
+      column: name
+    event_in:
+      column: event_in
+    event_out:
+      column: event_out
+    container:
+      column: container
+    commit:
+      column: commit
+  filters:
+    byProcessId: "process_id = :processId"
+    byId: "id = :id"
+    byEvent: "event_in = :event"
+
+
+processInstance:
+  model: process_instance
+  fields:
+    processId:
+      column: process_id
+    systemId:
+      column: system_id
+    startExecution:
+      column: start_execution
+    endExecution:
+      column: end_execution
+    referenceDate:
+      column: reference_date
+    status:
+      column: status
+    container:
+      column: container
+    origin_event_name:
+      column: origin_event_name
+  filters:
+    byProcessId: "process_id = :processId"
+    byId: "id = :id"
+    bySystemId: "system_id = :systemId"
+
+operationInstance:
+  model: operation_instance
+  fields:
+    processInstanceId:
+      column: process_instance_id
+    operationId:
+      column: operation_id
+    status:
+      column: status
+    mustCommit:
+      column: must_commit
+  filters:
+    byProcessInstanceId: " process_instance_id = :processInstanceId"
+    byOperationId: "operation_id = :operationId"
+    byId: "id = :id"
+
+event:
+  model: event
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+    processId:
+      column: process_id
+    direction:
+      column: direction
+    operationId:
+      column: operation_id
+  filters:
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+    byName: "name = :name"
+    byProcessId: "process_id = :processId"
+
+presentationInstance:
+  model: presentation_instance
+  fields:
+    presentationId:
+      column: presentation_id
+  filters:
+    byId: "id = :id"
+    byPresentationId: "presentation_id = :presentationId"
+
+installedApp:
+  model: installed_apps
+  fields:
+    systemId:
+      column: system_id
+    host:
+      column: host
+    port:
+      column: port
+    name:
+      column: name
+    type:
+      column: type
+  filters:
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+    byName: "name = :name"
+    bySystemIdAndType: "system_id = :systemId and type = :type"
+
