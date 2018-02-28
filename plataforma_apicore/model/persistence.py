@@ -35,7 +35,7 @@ class Persistence:
     def create(self, objs):
         for o in objs:
             _type = o["_metadata"]["type"]
-            _type = _type.title()
+            _type = _type.lower().title()
             instance = globals()[_type](**o)
             self.session.add(instance)
             yield instance
@@ -43,7 +43,7 @@ class Persistence:
     def update(self, objs):
         for o in objs:
             _type = o["_metadata"]["type"]
-            _type = _type.title()
+            _type = _type.lower().title()
             cls = globals()[_type]
             instance = cls(**o)
             del o['_metadata']
