@@ -269,7 +269,7 @@ class process(Base, TemporalModelMixin):
 
     name = Column(String)
     relative_path = Column(String)
-    deploy_date = Column(TIMESTAMP)
+    deploy_date = Column(DateTime)
     tag = Column(String)
     image_id = Column(String)
     system_id = Column(sap.UUID(as_uuid=True))
@@ -346,7 +346,7 @@ class reproduction(Base, TemporalModelMixin):
     original_instance_id = Column(sap.UUID(as_uuid=True))
     instance_id = Column(sap.UUID(as_uuid=True))
     owner = Column(String)
-    execution_start_date = Column(TIMESTAMP)
+    execution_start_date = Column(DateTime)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 

@@ -1,10 +1,10 @@
 process_instance:
   start_execution:
-    - datetime
+    - timestamp
   end_execution:
-    - datetime
+    - timestamp
   reference_date:
-    - datetime
+    - timestamp
   status:
     - string
   process_id:

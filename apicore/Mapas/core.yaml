@@ -31,6 +31,7 @@ reproduction:
    byOriginal: "original_instance_id = :original"
    byInstance: "instance_id = :instance"
    byOwner: "owner = :owner"
+   byId: "id = :id"
 
 map:
   model: map
