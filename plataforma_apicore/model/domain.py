@@ -15,7 +15,7 @@ def get_db_name():
     return "apicore"
 
 
-class Event(Base, TemporalModelMixin):
+class event(Base, TemporalModelMixin):
 
     def __init__(self, name=None,direction=None,operation_id=None,process_id=None,system_id=None,presentation_id=None, _metadata=None, **kwargs):
         self.name = name
@@ -50,7 +50,7 @@ class Event(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Installed_apps(Base, TemporalModelMixin):
+class installed_apps(Base, TemporalModelMixin):
 
     def __init__(self, system_id=None,host=None,name=None,port=None,type=None, _metadata=None, **kwargs):
         self.system_id = system_id
@@ -83,7 +83,7 @@ class Installed_apps(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Map(Base, TemporalModelMixin):
+class map(Base, TemporalModelMixin):
 
     def __init__(self, system_id=None,process_id=None,name=None,content=None, _metadata=None, **kwargs):
         self.system_id = system_id
@@ -114,7 +114,7 @@ class Map(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Operation(Base, TemporalModelMixin):
+class operation(Base, TemporalModelMixin):
 
     def __init__(self, name=None,process_id=None,system_id=None,event_in=None,event_out=None,container=None,commit=None, _metadata=None, **kwargs):
         self.name = name
@@ -151,7 +151,7 @@ class Operation(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Operation_instance(Base, TemporalModelMixin):
+class operation_instance(Base, TemporalModelMixin):
 
     def __init__(self, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None, _metadata=None, **kwargs):
         self.status = status
@@ -186,7 +186,7 @@ class Operation_instance(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Presentation(Base, TemporalModelMixin):
+class presentation(Base, TemporalModelMixin):
 
     def __init__(self, name=None,url=None,system_id=None, _metadata=None, **kwargs):
         self.name = name
@@ -215,7 +215,7 @@ class Presentation(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Presentation_instance(Base, TemporalModelMixin):
+class presentation_instance(Base, TemporalModelMixin):
 
     def __init__(self, presentation_id=None,system_id=None, _metadata=None, **kwargs):
         self.presentation_id = presentation_id
@@ -242,7 +242,7 @@ class Presentation_instance(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Process(Base, TemporalModelMixin):
+class process(Base, TemporalModelMixin):
 
     def __init__(self, name=None,relative_path=None,deploy_date=None,tag=None,image_id=None,system_id=None, _metadata=None, **kwargs):
         self.name = name
@@ -277,7 +277,7 @@ class Process(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Process_instance(Base, TemporalModelMixin):
+class process_instance(Base, TemporalModelMixin):
 
     def __init__(self, start_execution=None,end_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None,container=None, _metadata=None, **kwargs):
         self.start_execution = start_execution
@@ -316,7 +316,7 @@ class Process_instance(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Reproduction(Base, TemporalModelMixin):
+class reproduction(Base, TemporalModelMixin):
 
     def __init__(self, system_id=None,process_id=None,original_instance_id=None,instance_id=None,owner=None,execution_start_date=None, _metadata=None, **kwargs):
         self.system_id = system_id
@@ -351,7 +351,7 @@ class Reproduction(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class Sent_event(Base, TemporalModelMixin):
+class sent_event(Base, TemporalModelMixin):
 
     def __init__(self, event_id=None,presentation_instance_id=None,operation_instance_id=None,event_date=None,reference_date=None,payload=None,is_reproduction=None, _metadata=None, **kwargs):
         self.event_id = event_id
@@ -388,7 +388,7 @@ class Sent_event(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
 
 
-class System(Base, TemporalModelMixin):
+class system(Base, TemporalModelMixin):
 
     def __init__(self, name=None,description=None,version=None, _metadata=None, **kwargs):
         self.name = name
