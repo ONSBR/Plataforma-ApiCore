@@ -1,11 +1,10 @@
 from flask import url_for
 import pytest
-from api.server import get_app
 from mock import patch
 from utils.http import HttpClient, ExecutionResult
 import database
+from model.domain import conta
 import json
-#  from migration.sync import sync_db
 
 
 def apicore_map():
@@ -90,7 +89,6 @@ def test_with_empty_list(app):
 
 @pytest.mark.usefixtures('app')
 def test_full_persist(app):
-    #  sync_db("app_name")
     with patch.object(HttpClient, 'get', return_value=apicore_map()) as mock_method:
         _list = []
         obj = {
@@ -134,3 +132,26 @@ def test_full_persist(app):
         assert response.status_code == 200
         assert len(_list) == 1
         assert "id" in _list[0]
+
+def test_destroy_data(session, test_client):
+    origem = conta(titular="Fabio", saldo=10000)
+    destino = conta(titular="Moneda", saldo=100)
+    session.add_all([origem, destino])
+    session.commit()
+
+    with patch.object(HttpClient, 'get', return_value=apicore_map()) as mock_method:
+        uri = f'/Conta/Conta?filter=transferencia&origem={origem.id}&destino={destino.id}'
+        status_code, resp = test_client.get_json(uri)
+        destroyed_id = resp[0]["id"]
+        resp[0]["_metadata"]["changeTrack"] = "destroy"
+        body = json.dumps([resp[0]])
+        assert len(resp) == 2
+        response = test_client.post('/Conta/persist',follow_redirects=True, data=body,
+                               content_type='application/json')
+
+        assert response.status_code == 200
+
+        status_code, resp = test_client.get_json(uri)
+        assert status_code == 200
+        assert len(resp) == 1
+        assert resp[0]["id"] != destroyed_id
