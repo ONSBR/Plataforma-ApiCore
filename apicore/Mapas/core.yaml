@@ -98,14 +98,16 @@ operation:
       column: event_in
     event_out:
       column: event_out
-    container:
-      column: container
+    image:
+      column: image
     commit:
       column: commit
   filters:
     byProcessId: "process_id = :processId"
     byId: "id = :id"
     byEvent: "event_in = :event"
+    bySystemId: "system_id = :systemId"
+    byName: "name = :name"
 
 
 processInstance:

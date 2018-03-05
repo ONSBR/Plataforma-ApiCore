@@ -9,7 +9,7 @@ operation:
     - string
   event_out:
     - string
-  container:
+  image:
     - string
   commit:
     - boolean

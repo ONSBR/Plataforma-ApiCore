@@ -125,7 +125,7 @@ class map(Base, TemporalModelMixin):
 
 class operation(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, name=None,process_id=None,system_id=None,event_in=None,event_out=None,container=None,commit=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, name=None,process_id=None,system_id=None,event_in=None,event_out=None,image=None,commit=None, _metadata=None, **kwargs):
         self.id = id
         self.deleted = deleted
         self.name = name
@@ -133,13 +133,13 @@ class operation(Base, TemporalModelMixin):
         self.system_id = system_id
         self.event_in = event_in
         self.event_out = event_out
-        self.container = container
+        self.image = image
         self.commit = commit
         self._metadata = _metadata
 
     def dict(self):
         return {
-            "name": self.name,"process_id": self.process_id,"system_id": self.system_id,"event_in": self.event_in,"event_out": self.event_out,"container": self.container,"commit": self.commit,
+            "name": self.name,"process_id": self.process_id,"system_id": self.system_id,"event_in": self.event_in,"event_out": self.event_out,"image": self.image,"commit": self.commit,
             "id": self.id,
             "_metadata": self._metadata
         }
@@ -149,14 +149,14 @@ class operation(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted', 'name','process_id','system_id','event_in','event_out','container','commit', )
+        fields = ('deleted', 'name','process_id','system_id','event_in','event_out','image','commit', )
 
     name = Column(String)
     process_id = Column(sap.UUID(as_uuid=True))
     system_id = Column(sap.UUID(as_uuid=True))
     event_in = Column(String)
     event_out = Column(String)
-    container = Column(String)
+    image = Column(String)
     commit = Column(Boolean)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
