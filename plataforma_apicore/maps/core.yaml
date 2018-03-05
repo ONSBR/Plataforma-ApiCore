@@ -15,12 +15,14 @@ system:
 reproduction:
  model: reproduction
  fields:
-   original_id:
+   originalId:
      column: original_instance_id
-   instance_id:
+   instanceId:
      column: instance_id
    owner:
      column: owner
+   externalId:
+     column: external_id
    systemId:
      column: system_id
    processId:
@@ -32,6 +34,7 @@ reproduction:
    byInstance: "instance_id = :instance"
    byOwner: "owner = :owner"
    byId: "id = :id"
+   byExternalId: "external_id = :externalId"
 
 map:
   model: map

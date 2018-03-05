@@ -9,6 +9,8 @@ reproduction:
     - uuid
   owner:
     - string
+  external_id:
+    - string
   execution_start_date:
     - datetime
 

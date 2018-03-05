@@ -347,7 +347,7 @@ class process_instance(Base, TemporalModelMixin):
 
 class reproduction(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, system_id=None,process_id=None,original_instance_id=None,instance_id=None,owner=None,execution_start_date=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, system_id=None,process_id=None,original_instance_id=None,instance_id=None,owner=None,external_id=None,execution_start_date=None, _metadata=None, **kwargs):
         self.id = id
         self.deleted = deleted
         self.system_id = system_id
@@ -355,12 +355,13 @@ class reproduction(Base, TemporalModelMixin):
         self.original_instance_id = original_instance_id
         self.instance_id = instance_id
         self.owner = owner
+        self.external_id = external_id
         self.execution_start_date = execution_start_date
         self._metadata = _metadata
 
     def dict(self):
         return {
-            "system_id": self.system_id,"process_id": self.process_id,"original_instance_id": self.original_instance_id,"instance_id": self.instance_id,"owner": self.owner,"execution_start_date": self.execution_start_date,
+            "system_id": self.system_id,"process_id": self.process_id,"original_instance_id": self.original_instance_id,"instance_id": self.instance_id,"owner": self.owner,"external_id": self.external_id,"execution_start_date": self.execution_start_date,
             "id": self.id,
             "_metadata": self._metadata
         }
@@ -370,13 +371,14 @@ class reproduction(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted', 'system_id','process_id','original_instance_id','instance_id','owner','execution_start_date', )
+        fields = ('deleted', 'system_id','process_id','original_instance_id','instance_id','owner','external_id','execution_start_date', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     process_id = Column(sap.UUID(as_uuid=True))
     original_instance_id = Column(sap.UUID(as_uuid=True))
     instance_id = Column(sap.UUID(as_uuid=True))
     owner = Column(String)
+    external_id = Column(String)
     execution_start_date = Column(DateTime)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
