@@ -15,3 +15,5 @@ process_instance:
     - uuid
   container:
     - string
+  image:
+    - string

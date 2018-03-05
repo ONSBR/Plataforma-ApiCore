@@ -122,12 +122,15 @@ processInstance:
       column: status
     container:
       column: container
+    image:
+      column: image
     origin_event_name:
       column: origin_event_name
   filters:
     byProcessId: "process_id = :processId"
     byId: "id = :id"
     bySystemId: "system_id = :systemId"
+    byOriginEvent: "origin_event_name = :originEvent"
 
 operationInstance:
   model: operation_instance
