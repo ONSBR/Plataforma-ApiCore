@@ -1,0 +1,6 @@
+{
+    "docker": {
+        "tag": "registry:5000/apicore:84899cd4-4b3a-447a-97ef-3c960ab4449f",
+        "port": 9110
+    }
+}
