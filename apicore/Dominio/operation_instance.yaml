@@ -4,10 +4,14 @@ operation_instance:
   must_commit:
     - boolean
   process_instance_id:
-    - uuid 
+    - uuid
   process_id:
     - uuid
   system_id:
     - uuid
   operation_id:
     - uuid
+  image:
+    - string
+  event_name:
+    - string

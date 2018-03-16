@@ -165,7 +165,7 @@ class operation(Base, TemporalModelMixin):
 
 class operation_instance(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None,image=None,event_name=None, _metadata=None, **kwargs):
         self.id = id
         self.deleted = deleted
         self.status = status
@@ -174,11 +174,13 @@ class operation_instance(Base, TemporalModelMixin):
         self.process_id = process_id
         self.system_id = system_id
         self.operation_id = operation_id
+        self.image = image
+        self.event_name = event_name
         self._metadata = _metadata
 
     def dict(self):
         return {
-            "status": self.status,"must_commit": self.must_commit,"process_instance_id": self.process_instance_id,"process_id": self.process_id,"system_id": self.system_id,"operation_id": self.operation_id,
+            "status": self.status,"must_commit": self.must_commit,"process_instance_id": self.process_instance_id,"process_id": self.process_id,"system_id": self.system_id,"operation_id": self.operation_id,"image": self.image,"event_name": self.event_name,
             "id": self.id,
             "_metadata": self._metadata
         }
@@ -188,7 +190,7 @@ class operation_instance(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted', 'status','must_commit','process_instance_id','process_id','system_id','operation_id', )
+        fields = ('deleted', 'status','must_commit','process_instance_id','process_id','system_id','operation_id','image','event_name', )
 
     status = Column(String)
     must_commit = Column(Boolean)
@@ -196,6 +198,8 @@ class operation_instance(Base, TemporalModelMixin):
     process_id = Column(sap.UUID(as_uuid=True))
     system_id = Column(sap.UUID(as_uuid=True))
     operation_id = Column(sap.UUID(as_uuid=True))
+    image = Column(String)
+    event_name = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN())
@@ -303,7 +307,7 @@ class process(Base, TemporalModelMixin):
 
 class process_instance(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, start_execution=None,end_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None,container=None,image=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, start_execution=None,end_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None, _metadata=None, **kwargs):
         self.id = id
         self.deleted = deleted
         self.start_execution = start_execution
@@ -313,13 +317,11 @@ class process_instance(Base, TemporalModelMixin):
         self.process_id = process_id
         self.origin_event_name = origin_event_name
         self.system_id = system_id
-        self.container = container
-        self.image = image
         self._metadata = _metadata
 
     def dict(self):
         return {
-            "start_execution": self.start_execution,"end_execution": self.end_execution,"reference_date": self.reference_date,"status": self.status,"process_id": self.process_id,"origin_event_name": self.origin_event_name,"system_id": self.system_id,"container": self.container,"image": self.image,
+            "start_execution": self.start_execution,"end_execution": self.end_execution,"reference_date": self.reference_date,"status": self.status,"process_id": self.process_id,"origin_event_name": self.origin_event_name,"system_id": self.system_id,
             "id": self.id,
             "_metadata": self._metadata
         }
@@ -329,7 +331,7 @@ class process_instance(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted', 'start_execution','end_execution','reference_date','status','process_id','origin_event_name','system_id','container','image', )
+        fields = ('deleted', 'start_execution','end_execution','reference_date','status','process_id','origin_event_name','system_id', )
 
     start_execution = Column(DateTime)
     end_execution = Column(DateTime)
@@ -338,8 +340,6 @@ class process_instance(Base, TemporalModelMixin):
     process_id = Column(sap.UUID(as_uuid=True))
     origin_event_name = Column(String)
     system_id = Column(sap.UUID(as_uuid=True))
-    container = Column(String)
-    image = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN())
