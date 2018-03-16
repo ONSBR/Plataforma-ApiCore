@@ -136,6 +136,10 @@ processInstance:
 operationInstance:
   model: operation_instance
   fields:
+    processId:
+      column: process_id
+    systemId:
+      column: system_id
     processInstanceId:
       column: process_instance_id
     operationId:
