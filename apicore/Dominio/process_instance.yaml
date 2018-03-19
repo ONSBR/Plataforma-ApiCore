@@ -13,7 +13,3 @@ process_instance:
     - string
   system_id:
     - uuid
-  container:
-    - string
-  image:
-    - string

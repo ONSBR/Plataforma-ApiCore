@@ -125,10 +125,6 @@ processInstance:
       column: reference_date
     status:
       column: status
-    container:
-      column: container
-    image:
-      column: image
     origin_event_name:
       column: origin_event_name
   filters:
@@ -140,6 +136,10 @@ processInstance:
 operationInstance:
   model: operation_instance
   fields:
+    processId:
+      column: process_id
+    systemId:
+      column: system_id
     processInstanceId:
       column: process_instance_id
     operationId:
@@ -148,10 +148,17 @@ operationInstance:
       column: status
     mustCommit:
       column: must_commit
+    image:
+      column: image
+    eventName:
+      column: event_name
   filters:
     byProcessInstanceId: " process_instance_id = :processInstanceId"
+    byInstanceIdEventName: " process_instance_id = :processInstanceId and event_name = :eventName"
     byOperationId: "operation_id = :operationId"
     byId: "id = :id"
+    byProcessId: "process_id = :processId"
+    bySystemId: "system_id = :systemId"
 
 event:
   model: event
