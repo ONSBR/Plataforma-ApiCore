@@ -108,6 +108,7 @@ operation:
     byEvent: "event_in = :event"
     bySystemId: "system_id = :systemId"
     byName: "name = :name"
+    bindingEvent: "event_in = :event or event_out = :event"
 
 
 processInstance:

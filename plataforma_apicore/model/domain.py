@@ -51,7 +51,7 @@ class event(Base, TemporalModelMixin):
     presentation_id = Column(sap.UUID(as_uuid=True))
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -89,7 +89,7 @@ class installed_apps(Base, TemporalModelMixin):
     type = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -125,7 +125,7 @@ class map(Base, TemporalModelMixin):
     content = Column(Text)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -167,7 +167,7 @@ class operation(Base, TemporalModelMixin):
     commit = Column(Boolean)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -211,7 +211,7 @@ class operation_instance(Base, TemporalModelMixin):
     event_name = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -245,7 +245,7 @@ class presentation(Base, TemporalModelMixin):
     system_id = Column(sap.UUID(as_uuid=True))
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -277,7 +277,7 @@ class presentation_instance(Base, TemporalModelMixin):
     system_id = Column(sap.UUID(as_uuid=True))
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -317,7 +317,7 @@ class process(Base, TemporalModelMixin):
     system_id = Column(sap.UUID(as_uuid=True))
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -359,7 +359,7 @@ class process_instance(Base, TemporalModelMixin):
     system_id = Column(sap.UUID(as_uuid=True))
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -401,7 +401,7 @@ class reproduction(Base, TemporalModelMixin):
     execution_start_date = Column(DateTime)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -443,7 +443,7 @@ class sent_event(Base, TemporalModelMixin):
     is_reproduction = Column(Boolean)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 
@@ -477,7 +477,7 @@ class system(Base, TemporalModelMixin):
     version = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
-    deleted = Column(sap.BOOLEAN())
+    deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
 
 

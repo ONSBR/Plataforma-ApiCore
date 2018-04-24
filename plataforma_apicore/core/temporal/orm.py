@@ -1,7 +1,8 @@
 from datetime import datetime, timezone
 
 from sqlalchemy import orm
-
+from sqlalchemy import func
+import log
 from core.temporal.utils import effective_now
 
 
@@ -26,6 +27,11 @@ class TemporalQuery(orm.Query):
     def history(self, period=datetime.now(tz=timezone.utc), version=None, fields=None):
         cls = self.column_descriptions[0]['entity']
 
+        # double check to assert the period exists, otherwise the query
+        # will always be resultless.
+        if not period:
+            period = datetime.now(tz=timezone.utc)
+
         if not hasattr(cls, 'Temporal'):
             raise Exception("not temporal")
 
@@ -34,15 +40,23 @@ class TemporalQuery(orm.Query):
             .filter(cls._clock.effective.contains(period))
 
         for field in fields if fields else cls.Temporal.fields:
-            history = cls._history[field]
+            if field.name in ('id'):
+                continue
+
+            f = field.element
+            log.info(f)
+            parts = str(f).split(".")
+            name = parts[1]
+            label = field.name
+            history = cls._history[name]
             clock = cls._clock
+            ticks_name = f'{name}_ticks'
             query = query\
-                .add_column(history.value.label(field))\
+                .add_column(history.value.label(label))\
+                .add_column(func.lower(history.ticks).label(ticks_name))\
                 .join(
                     history,
                     (cls.id == history.entity_id)
-                    & (history.clock_id == clock.id)
-                    & (history.ticks.contains(version or clock.ticks))
-                )
+                    & (history.clock_id == clock.id))
 
         return query

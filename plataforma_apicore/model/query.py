@@ -2,6 +2,7 @@ import re
 from model import domain
 from sqlalchemy.sql import text
 import uuid
+import log
 
 class Query:
     def __init__(self, reference_date, version, session):
@@ -20,10 +21,11 @@ class Query:
         self.entity_cls = getattr(domain, self.entity.lower())
 
     def build_select(self, projection):
-        return [
+        attrs = [
             getattr(self.entity_cls, a[0]).label(a[1])
             for a in projection['attributes']
         ]
+        return attrs
 
     def execute(self, projection, page=None, page_size=None):
         query_select = self.build_select(projection)
@@ -45,6 +47,48 @@ class Query:
         resultset = q_.all()
         return self.row2dict(resultset, projection)
 
+    def history(self, mapped_entity, entity, projection, entity_id):
+        domain_entity = getattr(domain, entity)
+        query_select = self.build_select(projection)
+        query_select.append(getattr(self.entity_cls, "deleted").label("destroy"))
+        history = self.session.query(domain_entity).history(
+            fields=query_select, period=self.reference_date)
+        history = history.filter(domain_entity.id==entity_id)
+
+        ranges = []
+        for f in query_select:
+            parts = str(f.element).split(".")
+            n = parts[1]
+            if n in ["id"]:
+                continue
+            ranges.append(entity+n+"history.ticks")
+        history = history.filter(f"not isEmpty({' * '.join(ranges)})")
+
+        ticks_fields = {
+            c['name'] for c in history.column_descriptions
+            if c['name'].endswith('_ticks')
+        }
+        for entity_history in history.all():
+            entity_dict = entity_history._asdict()
+            log.info(entity_dict)
+            entity_dict["_metadata"] = {}
+            entity_dict["_metadata"]["type"] = self.mapped_entity
+            entity_dict["_metadata"]['version'] = 0
+            entity_dict["_metadata"]["instance_id"] = entity_dict["meta_instance_id"]
+            entity_dict["id"] = entity_id
+            if entity_dict["destroy"]:
+                entity_dict["_metadata"]["destroy"] = entity_dict["destroy"]
+            entity_dict.pop(entity)
+            entity_dict.pop("destroy")
+            entity_dict.pop("meta_instance_id")
+            for tick_field in ticks_fields:
+                if not entity_dict[tick_field]:
+                    entity_dict.pop(tick_field)
+                    continue
+                entity_dict["_metadata"]['version'] = max(entity_dict["_metadata"]['version'], entity_dict[tick_field])
+                entity_dict.pop(tick_field)
+            yield entity_dict
+
     def row2dict(self, rows, projection):
         d = {}
         result = []
@@ -56,7 +100,6 @@ class Query:
                 if type(column) == uuid.UUID:
                     column = str(column)
                 if projection['attributes'][cont][1] == "meta_instance_id":
-
                     cont += 1
                     instance_id = column
                     continue
