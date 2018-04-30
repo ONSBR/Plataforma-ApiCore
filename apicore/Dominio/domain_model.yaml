@@ -1,0 +1,7 @@
+domain_model:
+  system_id:
+    - uuid
+  model_name:
+    - string
+  model:
+    - string
