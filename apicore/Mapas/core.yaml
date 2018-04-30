@@ -14,9 +14,12 @@ system:
 domain_model:
   model: domain_model
   fields:
-    systemId: system_id
-    name: model_name
-    model: model
+    systemId:
+      column: system_id
+    name:
+      column: model_name
+    model:
+      column: model
   filters:
     bySystemId: "system_id = :systemId"
     bySystemIdAndName: "system_id = :systemId and model_name = :name"
