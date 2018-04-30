@@ -4,20 +4,53 @@ from core.temporal.models import TemporalModelMixin
 import sqlalchemy.dialects.postgresql as sap
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy import *
-import datetime
-
-
-class MigrationHistory(Base):
-    name = Column(String(80), unique=True, nullable=False)
-    created_date = Column(DateTime, default=datetime.datetime.utcnow)
+from datetime import datetime
 
 def get_db_name():
     return "apicore"
 
 
+class domain_model(Base, TemporalModelMixin):
+
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,model_name=None,model=None, _metadata=None, branch='master', **kwargs):
+        self.id = id
+        self.deleted = deleted
+        self.meta_instance_id = meta_instance_id
+        self.system_id = system_id
+        self.model_name = model_name
+        self.model = model
+        self._metadata = _metadata
+        self.branch = branch 
+
+    def dict(self):
+        return {
+            "system_id": self.system_id,"model_name": self.model_name,"model": self.model,
+            "id": self.id,
+            "_metadata": self._metadata
+        }
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    class Temporal:
+        fields = ('deleted','modified', 'meta_instance_id', 'system_id','model_name','model', )
+
+    system_id = Column(sap.UUID(as_uuid=True))
+    model_name = Column(String)
+    model = Column(String)
+
+    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    deleted = Column(sap.BOOLEAN(), default=False)
+    meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
+
+
 class event(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,direction=None,operation_id=None,process_id=None,system_id=None,presentation_id=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,direction=None,operation_id=None,process_id=None,system_id=None,presentation_id=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -28,6 +61,7 @@ class event(Base, TemporalModelMixin):
         self.system_id = system_id
         self.presentation_id = presentation_id
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -41,7 +75,7 @@ class event(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'name','direction','operation_id','process_id','system_id','presentation_id', )
+        fields = ('deleted','modified', 'meta_instance_id', 'name','direction','operation_id','process_id','system_id','presentation_id', )
 
     name = Column(String)
     direction = Column(String)
@@ -53,11 +87,14 @@ class event(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class installed_apps(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,host=None,name=None,port=None,type=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,host=None,name=None,port=None,type=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -67,6 +104,7 @@ class installed_apps(Base, TemporalModelMixin):
         self.port = port
         self.type = type
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -80,7 +118,7 @@ class installed_apps(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'system_id','host','name','port','type', )
+        fields = ('deleted','modified', 'meta_instance_id', 'system_id','host','name','port','type', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     host = Column(String)
@@ -91,11 +129,14 @@ class installed_apps(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class map(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,name=None,content=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,name=None,content=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -104,6 +145,7 @@ class map(Base, TemporalModelMixin):
         self.name = name
         self.content = content
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -117,7 +159,7 @@ class map(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'system_id','process_id','name','content', )
+        fields = ('deleted','modified', 'meta_instance_id', 'system_id','process_id','name','content', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     process_id = Column(sap.UUID(as_uuid=True))
@@ -127,11 +169,14 @@ class map(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class operation(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,process_id=None,system_id=None,event_in=None,event_out=None,image=None,commit=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,process_id=None,system_id=None,event_in=None,event_out=None,image=None,commit=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -143,6 +188,7 @@ class operation(Base, TemporalModelMixin):
         self.image = image
         self.commit = commit
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -156,7 +202,7 @@ class operation(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'name','process_id','system_id','event_in','event_out','image','commit', )
+        fields = ('deleted','modified', 'meta_instance_id', 'name','process_id','system_id','event_in','event_out','image','commit', )
 
     name = Column(String)
     process_id = Column(sap.UUID(as_uuid=True))
@@ -169,11 +215,14 @@ class operation(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class operation_instance(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None,image=None,event_name=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None,image=None,event_name=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -186,6 +235,7 @@ class operation_instance(Base, TemporalModelMixin):
         self.image = image
         self.event_name = event_name
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -199,7 +249,7 @@ class operation_instance(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'status','must_commit','process_instance_id','process_id','system_id','operation_id','image','event_name', )
+        fields = ('deleted','modified', 'meta_instance_id', 'status','must_commit','process_instance_id','process_id','system_id','operation_id','image','event_name', )
 
     status = Column(String)
     must_commit = Column(Boolean)
@@ -213,11 +263,14 @@ class operation_instance(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class presentation(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,url=None,system_id=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,url=None,system_id=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -225,6 +278,7 @@ class presentation(Base, TemporalModelMixin):
         self.url = url
         self.system_id = system_id
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -238,7 +292,7 @@ class presentation(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'name','url','system_id', )
+        fields = ('deleted','modified', 'meta_instance_id', 'name','url','system_id', )
 
     name = Column(String)
     url = Column(String)
@@ -247,17 +301,21 @@ class presentation(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class presentation_instance(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, presentation_id=None,system_id=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, presentation_id=None,system_id=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
         self.presentation_id = presentation_id
         self.system_id = system_id
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -271,7 +329,7 @@ class presentation_instance(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'presentation_id','system_id', )
+        fields = ('deleted','modified', 'meta_instance_id', 'presentation_id','system_id', )
 
     presentation_id = Column(sap.UUID(as_uuid=True))
     system_id = Column(sap.UUID(as_uuid=True))
@@ -279,11 +337,14 @@ class presentation_instance(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class process(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,relative_path=None,deploy_date=None,tag=None,image_id=None,system_id=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,relative_path=None,deploy_date=None,tag=None,image_id=None,system_id=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -294,6 +355,7 @@ class process(Base, TemporalModelMixin):
         self.image_id = image_id
         self.system_id = system_id
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -307,7 +369,7 @@ class process(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'name','relative_path','deploy_date','tag','image_id','system_id', )
+        fields = ('deleted','modified', 'meta_instance_id', 'name','relative_path','deploy_date','tag','image_id','system_id', )
 
     name = Column(String)
     relative_path = Column(String)
@@ -319,11 +381,14 @@ class process(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class process_instance(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, start_execution=None,end_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, start_execution=None,end_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -335,6 +400,7 @@ class process_instance(Base, TemporalModelMixin):
         self.origin_event_name = origin_event_name
         self.system_id = system_id
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -348,7 +414,7 @@ class process_instance(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'start_execution','end_execution','reference_date','status','process_id','origin_event_name','system_id', )
+        fields = ('deleted','modified', 'meta_instance_id', 'start_execution','end_execution','reference_date','status','process_id','origin_event_name','system_id', )
 
     start_execution = Column(DateTime)
     end_execution = Column(DateTime)
@@ -361,11 +427,14 @@ class process_instance(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class reproduction(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,original_instance_id=None,instance_id=None,owner=None,external_id=None,execution_start_date=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,original_instance_id=None,instance_id=None,owner=None,external_id=None,execution_start_date=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -377,6 +446,7 @@ class reproduction(Base, TemporalModelMixin):
         self.external_id = external_id
         self.execution_start_date = execution_start_date
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -390,7 +460,7 @@ class reproduction(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'system_id','process_id','original_instance_id','instance_id','owner','external_id','execution_start_date', )
+        fields = ('deleted','modified', 'meta_instance_id', 'system_id','process_id','original_instance_id','instance_id','owner','external_id','execution_start_date', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     process_id = Column(sap.UUID(as_uuid=True))
@@ -403,11 +473,14 @@ class reproduction(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class sent_event(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, event_id=None,presentation_instance_id=None,operation_instance_id=None,event_date=None,reference_date=None,payload=None,is_reproduction=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, event_id=None,presentation_instance_id=None,operation_instance_id=None,event_date=None,reference_date=None,payload=None,is_reproduction=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -419,6 +492,7 @@ class sent_event(Base, TemporalModelMixin):
         self.payload = payload
         self.is_reproduction = is_reproduction
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -432,7 +506,7 @@ class sent_event(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'event_id','presentation_instance_id','operation_instance_id','event_date','reference_date','payload','is_reproduction', )
+        fields = ('deleted','modified', 'meta_instance_id', 'event_id','presentation_instance_id','operation_instance_id','event_date','reference_date','payload','is_reproduction', )
 
     event_id = Column(sap.UUID(as_uuid=True))
     presentation_instance_id = Column(sap.UUID(as_uuid=True))
@@ -445,11 +519,14 @@ class sent_event(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 class system(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,description=None,version=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,description=None,version=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -457,6 +534,7 @@ class system(Base, TemporalModelMixin):
         self.description = description
         self.version = version
         self._metadata = _metadata
+        self.branch = branch 
 
     def dict(self):
         return {
@@ -470,7 +548,7 @@ class system(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','meta_instance_id', 'name','description','version', )
+        fields = ('deleted','modified', 'meta_instance_id', 'name','description','version', )
 
     name = Column(String)
     description = Column(String)
@@ -479,6 +557,9 @@ class system(Base, TemporalModelMixin):
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
 
