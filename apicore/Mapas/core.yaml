@@ -27,6 +27,21 @@ domain_model:
     bySystemIdAndName: "system_id = :systemId and model_name = :name"
     byVersion: "version = :version"
 
+mappedFields:
+  model: mapped_fields
+  fields:
+    systemId:
+      column: system_id
+    processId:
+      column: process_id
+    entity:
+      column: entity_name
+    field:
+      column: entity_field
+  filters:
+    bySystemId: "system_id = :systemId"
+    byProcessId: "process_id = :processId"
+
 reproduction:
  model: reproduction
  fields:
