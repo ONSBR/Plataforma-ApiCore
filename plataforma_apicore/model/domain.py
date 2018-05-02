@@ -12,19 +12,20 @@ def get_db_name():
 
 class domain_model(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,model_name=None,model=None, _metadata=None, branch='master', **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,model_name=None,model=None,version=None, _metadata=None, branch='master', **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
         self.system_id = system_id
         self.model_name = model_name
         self.model = model
+        self.version = version
         self._metadata = _metadata
         self.branch = branch 
 
     def dict(self):
         return {
-            "system_id": self.system_id,"model_name": self.model_name,"model": self.model,
+            "system_id": self.system_id,"model_name": self.model_name,"model": self.model,"version": self.version,
             "id": self.id,
             "_metadata": self._metadata
         }
@@ -34,11 +35,12 @@ class domain_model(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified', 'meta_instance_id', 'system_id','model_name','model', )
+        fields = ('deleted','modified', 'meta_instance_id', 'system_id','model_name','model','version', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     model_name = Column(String)
     model = Column(String)
+    version = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)

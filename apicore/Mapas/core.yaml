@@ -20,9 +20,12 @@ domain_model:
       column: model_name
     model:
       column: model
+    version:
+      column: version
   filters:
     bySystemId: "system_id = :systemId"
     bySystemIdAndName: "system_id = :systemId and model_name = :name"
+    byVersion: "version = :version"
 
 reproduction:
  model: reproduction
