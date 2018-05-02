@@ -1,0 +1,9 @@
+mapped_fields:
+  system_id:
+    - uuid
+  process_id:
+    - uuid
+  entity_name:
+    - string
+  entity_field:
+    - string

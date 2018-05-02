@@ -176,6 +176,46 @@ class map(Base, TemporalModelMixin):
     from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
+class mapped_fields(Base, TemporalModelMixin):
+
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,entity_name=None,entity_field=None, _metadata=None, branch='master', **kwargs):
+        self.id = id
+        self.deleted = deleted
+        self.meta_instance_id = meta_instance_id
+        self.system_id = system_id
+        self.process_id = process_id
+        self.entity_name = entity_name
+        self.entity_field = entity_field
+        self._metadata = _metadata
+        self.branch = branch 
+
+    def dict(self):
+        return {
+            "system_id": self.system_id,"process_id": self.process_id,"entity_name": self.entity_name,"entity_field": self.entity_field,
+            "id": self.id,
+            "_metadata": self._metadata
+        }
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    class Temporal:
+        fields = ('deleted','modified', 'meta_instance_id', 'system_id','process_id','entity_name','entity_field', )
+
+    system_id = Column(sap.UUID(as_uuid=True))
+    process_id = Column(sap.UUID(as_uuid=True))
+    entity_name = Column(String)
+    entity_field = Column(String)
+
+    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    deleted = Column(sap.BOOLEAN(), default=False)
+    meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
+
+
 class operation(Base, TemporalModelMixin):
 
     def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,process_id=None,system_id=None,event_in=None,event_out=None,image=None,commit=None, _metadata=None, branch='master', **kwargs):
