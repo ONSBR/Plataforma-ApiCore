@@ -1,0 +1,9 @@
+branch:
+  system_id:
+    - uuid
+  name:
+    - string
+  description:
+    - string
+  owner:
+    - string

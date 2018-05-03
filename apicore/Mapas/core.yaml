@@ -23,6 +23,10 @@ branch:
       column: description
     owner:
       column: owner
+  filters:
+    bySystemId: "system_id = :systemId"
+    bySystemIdAndOwner: "system_id = :systemId and owner = :owner"
+    bySystemIdAndName: "system_id = :systemId and name = :name"
 
 domain_model:
   model: domain_model
