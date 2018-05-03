@@ -11,6 +11,23 @@ system:
     byName: "name = :name"
     byId: "id = :id"
 
+
+branch:
+  model: branch
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+    description:
+      column: description
+    owner:
+      column: owner
+  filters:
+    bySystemId: "system_id = :systemId"
+    bySystemIdAndOwner: "system_id = :systemId and owner = :owner"
+    bySystemIdAndName: "system_id = :systemId and name = :name"
+
 domain_model:
   model: domain_model
   fields:
