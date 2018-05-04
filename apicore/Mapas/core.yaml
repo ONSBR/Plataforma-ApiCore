@@ -18,7 +18,7 @@ branchLink:
       column: system_id
     entity:
       column: entity_name
-    branch:
+    branchName:
       column: branch_name
   filters:
     bySystemId: "system_id = :systemId"
