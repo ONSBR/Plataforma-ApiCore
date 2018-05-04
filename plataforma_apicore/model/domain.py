@@ -54,6 +54,46 @@ class branch(Base, TemporalModelMixin):
     from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
+class branch_link(Base, TemporalModelMixin):
+
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,entity_name=None,branch_name=None, _metadata=None, **kwargs):
+        self.id = id
+        self.deleted = deleted
+        self.meta_instance_id = meta_instance_id
+        self.system_id = system_id
+        self.entity_name = entity_name
+        self.branch_name = branch_name
+        self._metadata = _metadata
+        self.branch = kwargs.get('branch', 'master')
+        self.from_id = kwargs.get('from_id')
+
+    def dict(self):
+        return {
+            "system_id": self.system_id,"entity_name": self.entity_name,"branch_name": self.branch_name,
+            "id": self.id,
+            "branch":self.branch,
+            "_metadata": self._metadata
+        }
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    class Temporal:
+        fields = ('deleted','modified', 'meta_instance_id', 'system_id','entity_name','branch_name', )
+
+    system_id = Column(sap.UUID(as_uuid=True))
+    entity_name = Column(String)
+    branch_name = Column(String)
+
+    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    deleted = Column(sap.BOOLEAN(), default=False)
+    meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
+
+
 class domain_model(Base, TemporalModelMixin):
 
     def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,model_name=None,model=None,version=None, _metadata=None, **kwargs):

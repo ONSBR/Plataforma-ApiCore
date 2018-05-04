@@ -11,6 +11,17 @@ system:
     byName: "name = :name"
     byId: "id = :id"
 
+branchLink:
+  model: branch_link
+  fields:
+    systemId:
+      column: system_id
+    entity:
+      column: entity_name
+    branch:
+      column: branch_name
+  filters:
+    bySystemId: "system_id = :systemId"
 
 branch:
   model: branch

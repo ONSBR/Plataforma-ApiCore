@@ -1,0 +1,7 @@
+branch_link:
+  system_id:
+    - uuid
+  entity_name:
+    - string
+  branch_name:
+    - string
