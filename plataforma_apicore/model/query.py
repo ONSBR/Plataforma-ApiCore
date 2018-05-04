@@ -5,10 +5,11 @@ import uuid
 import log
 
 class Query:
-    def __init__(self, reference_date, version, session):
+    def __init__(self, reference_date, version, session, branch='master'):
         self.reference_date = reference_date
         self.version = version
         self.session = session
+        self.branch = branch
         self.app_id = None
         self.mapped_entity = None
         self.entity = None
@@ -29,40 +30,36 @@ class Query:
 
     def execute(self, projection, page=None, page_size=None):
         query_select = self.build_select(projection)
-        q_ = self.session.query(*query_select)
-        q_ = q_.filter(text("deleted = false"))
+        query = self.session.query(*query_select)
+        query = query.filter(text(f"deleted = false and branch = '{self.branch}'"))
+
+        if 'where' in projection:
+            where_clause = projection["where"]["query"]
+            stmt = text(where_clause).bindparams(**projection["where"]["params"])
+            query = query.filter(stmt)
 
         if page and page_size:
             page -= 1
-            q_ = q_.slice(page * page_size, page * page_size + page_size)
+            query = query.slice(page * page_size, page * page_size + page_size)
 
-        if 'where' in projection:
-            query = projection["where"]["query"]
-            #TODO melhorar a implementação
-            stmt = text(query)
-            stmt = stmt.bindparams(**projection["where"]["params"])
-            resultset = q_.filter(stmt).all()
-            return self.row2dict(resultset, projection)
+        return self.row2dict(query.all(), projection)
 
-        resultset = q_.all()
-        return self.row2dict(resultset, projection)
 
-    def history(self, mapped_entity, entity, projection, entity_id):
+    def history(self, mapped_entity, entity, projection, entity_id, version=None):
         domain_entity = getattr(domain, entity)
         query_select = self.build_select(projection)
         query_select.append(getattr(self.entity_cls, "deleted").label("destroy"))
         history = self.session.query(domain_entity).history(
             fields=query_select, period=self.reference_date)
         history = history.filter(domain_entity.id==entity_id)
-
         ranges = []
         for f in query_select:
             parts = str(f.element).split(".")
             n = parts[1]
-            if n in ["id"]:
+            if n in ["id", "branch", "from_id"]:
                 continue
             ranges.append(entity+n+"history.ticks")
-        history = history.filter(f"not isEmpty({' * '.join(ranges)})")
+        history = history.filter(text(f"not isEmpty({' * '.join(ranges)})"))
 
         ticks_fields = {
             c['name'] for c in history.column_descriptions
@@ -70,7 +67,6 @@ class Query:
         }
         for entity_history in history.all():
             entity_dict = entity_history._asdict()
-            log.info(entity_dict)
             entity_dict["_metadata"] = {}
             entity_dict["_metadata"]["type"] = self.mapped_entity
             entity_dict["_metadata"]['version'] = 0
@@ -87,7 +83,9 @@ class Query:
                     continue
                 entity_dict["_metadata"]['version'] = max(entity_dict["_metadata"]['version'], entity_dict[tick_field])
                 entity_dict.pop(tick_field)
-            yield entity_dict
+            if (version and entity_dict["_metadata"]['version'] == int(version)) or not version:
+                yield entity_dict
+
 
     def row2dict(self, rows, projection):
         d = {}

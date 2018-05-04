@@ -24,7 +24,7 @@ class TemporalQuery(orm.Query):
             cls.ticks.contains(clock.ticks),
         ).one_or_none()
 
-    def history(self, period=datetime.now(tz=timezone.utc), version=None, fields=None):
+    def history(self, period=datetime.now(tz=timezone.utc), fields=None):
         cls = self.column_descriptions[0]['entity']
 
         # double check to assert the period exists, otherwise the query
@@ -39,12 +39,12 @@ class TemporalQuery(orm.Query):
             .join((cls._clock, cls.id == cls._clock.entity_id))\
             .filter(cls._clock.effective.contains(period))
 
-        for field in fields if fields else cls.Temporal.fields:
-            if field.name in ('id'):
-                continue
+        if not fields:
+            fields = (getattr(cls, field).label(field) for field in cls.Temporal.fields)
 
+        ignored_fields = {'id', 'branch', 'from_id', }
+        for field in [f for f in fields if f.name not in ignored_fields]:
             f = field.element
-            log.info(f)
             parts = str(f).split(".")
             name = parts[1]
             label = field.name

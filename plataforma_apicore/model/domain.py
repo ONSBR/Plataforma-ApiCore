@@ -12,7 +12,7 @@ def get_db_name():
 
 class branch(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,name=None,description=None,owner=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,name=None,description=None,owner=None,status=None, _metadata=None, **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -20,14 +20,16 @@ class branch(Base, TemporalModelMixin):
         self.name = name
         self.description = description
         self.owner = owner
+        self.status = status
         self._metadata = _metadata
         self.branch = kwargs.get('branch', 'master')
         self.from_id = kwargs.get('from_id')
 
     def dict(self):
         return {
-            "system_id": self.system_id,"name": self.name,"description": self.description,"owner": self.owner,
+            "system_id": self.system_id,"name": self.name,"description": self.description,"owner": self.owner,"status": self.status,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -36,12 +38,13 @@ class branch(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified', 'meta_instance_id', 'system_id','name','description','owner', )
+        fields = ('deleted','modified', 'meta_instance_id', 'system_id','name','description','owner','status', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     name = Column(String)
     description = Column(String)
     owner = Column(String)
+    status = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
@@ -69,6 +72,7 @@ class domain_model(Base, TemporalModelMixin):
         return {
             "system_id": self.system_id,"model_name": self.model_name,"model": self.model,"version": self.version,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -112,6 +116,7 @@ class event(Base, TemporalModelMixin):
         return {
             "name": self.name,"direction": self.direction,"operation_id": self.operation_id,"process_id": self.process_id,"system_id": self.system_id,"presentation_id": self.presentation_id,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -156,6 +161,7 @@ class installed_apps(Base, TemporalModelMixin):
         return {
             "system_id": self.system_id,"host": self.host,"name": self.name,"port": self.port,"type": self.type,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -198,6 +204,7 @@ class map(Base, TemporalModelMixin):
         return {
             "system_id": self.system_id,"process_id": self.process_id,"name": self.name,"content": self.content,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -239,6 +246,7 @@ class mapped_fields(Base, TemporalModelMixin):
         return {
             "system_id": self.system_id,"process_id": self.process_id,"entity_name": self.entity_name,"entity_field": self.entity_field,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -283,6 +291,7 @@ class operation(Base, TemporalModelMixin):
         return {
             "name": self.name,"process_id": self.process_id,"system_id": self.system_id,"event_in": self.event_in,"event_out": self.event_out,"image": self.image,"commit": self.commit,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -331,6 +340,7 @@ class operation_instance(Base, TemporalModelMixin):
         return {
             "status": self.status,"must_commit": self.must_commit,"process_instance_id": self.process_instance_id,"process_id": self.process_id,"system_id": self.system_id,"operation_id": self.operation_id,"image": self.image,"event_name": self.event_name,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -375,6 +385,7 @@ class presentation(Base, TemporalModelMixin):
         return {
             "name": self.name,"url": self.url,"system_id": self.system_id,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -413,6 +424,7 @@ class presentation_instance(Base, TemporalModelMixin):
         return {
             "presentation_id": self.presentation_id,"system_id": self.system_id,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -454,6 +466,7 @@ class process(Base, TemporalModelMixin):
         return {
             "name": self.name,"relative_path": self.relative_path,"deploy_date": self.deploy_date,"tag": self.tag,"image_id": self.image_id,"system_id": self.system_id,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -500,6 +513,7 @@ class process_instance(Base, TemporalModelMixin):
         return {
             "start_execution": self.start_execution,"end_execution": self.end_execution,"reference_date": self.reference_date,"status": self.status,"process_id": self.process_id,"origin_event_name": self.origin_event_name,"system_id": self.system_id,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -547,6 +561,7 @@ class reproduction(Base, TemporalModelMixin):
         return {
             "system_id": self.system_id,"process_id": self.process_id,"original_instance_id": self.original_instance_id,"instance_id": self.instance_id,"owner": self.owner,"external_id": self.external_id,"execution_start_date": self.execution_start_date,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -594,6 +609,7 @@ class sent_event(Base, TemporalModelMixin):
         return {
             "event_id": self.event_id,"presentation_instance_id": self.presentation_instance_id,"operation_instance_id": self.operation_instance_id,"event_date": self.event_date,"reference_date": self.reference_date,"payload": self.payload,"is_reproduction": self.is_reproduction,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 
@@ -637,6 +653,7 @@ class system(Base, TemporalModelMixin):
         return {
             "name": self.name,"description": self.description,"version": self.version,
             "id": self.id,
+            "branch":self.branch,
             "_metadata": self._metadata
         }
 

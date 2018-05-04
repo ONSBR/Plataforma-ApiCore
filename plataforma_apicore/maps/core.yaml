@@ -23,10 +23,13 @@ branch:
       column: description
     owner:
       column: owner
+    status:
+      column: status
   filters:
     bySystemId: "system_id = :systemId"
     bySystemIdAndOwner: "system_id = :systemId and owner = :owner"
     bySystemIdAndName: "system_id = :systemId and name = :name"
+    bySystemIdAndStatus: "system_id = :systemId and status = :status"
 
 domain_model:
   model: domain_model
