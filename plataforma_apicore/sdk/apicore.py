@@ -39,6 +39,8 @@ class ApiCore(Component):
         return self.get(entity, params)
 
     def persist(self, items):
+        if len(items) == 0:
+            return
         core_services = self.config["core_services"]
         url = f"{core_services['scheme']}://{core_services['host']}:{core_services['port']}/core/persist"
         result = self.http.post(url, items)

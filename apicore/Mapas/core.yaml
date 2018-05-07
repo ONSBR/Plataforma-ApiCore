@@ -22,6 +22,7 @@ branchLink:
       column: branch_name
   filters:
     bySystemId: "system_id = :systemId"
+    bySystemIdAndBranchName: "system_id = :systemId and branch_name = :branch"
 
 branch:
   model: branch
