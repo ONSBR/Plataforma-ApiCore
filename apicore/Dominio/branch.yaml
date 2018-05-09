@@ -9,3 +9,5 @@ branch:
     - string
   status:
     - string
+  started_at:
+    - datetime
