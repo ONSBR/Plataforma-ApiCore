@@ -36,7 +36,7 @@ class CommandController:
                 curr["branch"] = o["_metadata"]["branch"]
 
             if "_metadata" in o and "modifiedAt" in o["_metadata"]:
-                curr["modified_at"] = o["_metadata"]["modifiedAt"]
+                curr["modified_at"] = o["_metadata"]["modified_at"]
 
             curr["from_id"] = o.get("fromId")
 
