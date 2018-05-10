@@ -2,7 +2,7 @@ from model.persistence import Persistence
 import json
 from mapper.builder import MapBuilder
 from database import create_session
-
+from dateutil import parser
 from flask import request
 
 
@@ -36,7 +36,7 @@ class CommandController:
                 curr["branch"] = o["_metadata"]["branch"]
 
             if "_metadata" in o and "modified_at" in o["_metadata"]:
-                curr["modified_at"] = o["_metadata"]["modified_at"]
+                curr["modified_at"] = parser.parse(o["_metadata"]["modified_at"])
 
             curr["from_id"] = o.get("fromId")
 
