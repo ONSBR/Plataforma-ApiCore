@@ -4,7 +4,6 @@ from mapper.builder import MapBuilder
 from database import create_session
 from dateutil import parser
 from flask import request
-import log
 
 class CommandController:
     """ Command Controller persist data on domain """
@@ -36,8 +35,7 @@ class CommandController:
                 curr["branch"] = o["_metadata"]["branch"]
 
             if "_metadata" in o and "modified_at" in o["_metadata"]:
-                curr["modified_at"] = parser.parse(o["_metadata"]["modified_at"])
-                log.info(curr)
+                curr["modified"] = parser.parse(o["_metadata"]["modified_at"])
 
             curr["from_id"] = o.get("fromId")
 
