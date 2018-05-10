@@ -35,6 +35,8 @@ branch:
       column: description
     owner:
       column: owner
+    startedAt:
+      column: started_at
     status:
       column: status
   filters:
