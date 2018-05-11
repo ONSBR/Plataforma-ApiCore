@@ -5,3 +5,5 @@ dependency_domain:
     - uuid
   entity:
     - string
+  version:
+    - uuid

@@ -20,9 +20,12 @@ dependencyDomain:
       column: process_id
     entity:
       column: entity
+    version:
+      column: version
   filters:
     bySystemId: "system_id = :systemId"
     byProcessId: "process_id = :processId"
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
 
 branchLink:
   model: branch_link
