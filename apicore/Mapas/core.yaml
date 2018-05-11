@@ -161,9 +161,14 @@ presentation:
       column: system_id
     url:
       column: url
+    version:
+      column: version
+    image:
+      column: image
   filters:
     bySystemId: "system_id = :systemId"
     byId: "id = :id"
+    bySystemIdAndVersion: "system_id = :systemId and version = :version"
 
 operation:
   model: operation
@@ -182,6 +187,8 @@ operation:
       column: image
     commit:
       column: commit
+    version:
+      column: version
   filters:
     byProcessId: "process_id = :processId"
     byId: "id = :id"
@@ -189,6 +196,7 @@ operation:
     bySystemId: "system_id = :systemId"
     byName: "name = :name"
     bindingEvent: "event_in = :event or event_out = :event"
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
 
 
 processInstance:

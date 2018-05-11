@@ -5,3 +5,7 @@ presentation:
     - string
   system_id:
     - uuid
+  version:
+    - uuid
+  image:
+    - string
