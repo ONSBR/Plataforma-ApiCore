@@ -11,6 +11,19 @@ system:
     byName: "name = :name"
     byId: "id = :id"
 
+dependencyDomain:
+  model: dependency_domain
+  fields:
+    systemId:
+      column: system_id
+    processId:
+      column: process_id
+    entity:
+      column: entity
+  filters:
+    bySystemId: "system_id = :systemId"
+    byProcessId: "process_id = :processId"
+
 branchLink:
   model: branch_link
   fields:

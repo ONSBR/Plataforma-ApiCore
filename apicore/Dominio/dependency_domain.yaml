@@ -1,0 +1,7 @@
+dependency_domain:
+  system_id:
+    - uuid
+  process_id:
+    - uuid
+  entity:
+    - string
