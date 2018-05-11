@@ -220,6 +220,8 @@ processInstance:
       column: origin_event_name
     version:
       column: version
+    isFork:
+      column: is_fork
   filters:
     byProcessId: "process_id = :processId"
     byProcessIdAndVersion: "process_id = :processId and version = :version"

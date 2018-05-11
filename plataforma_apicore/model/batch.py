@@ -4,7 +4,9 @@ from sdk import process_memory, event_manager, process_instance
 from mapper.builder import MapBuilder
 from dateutil import parser
 from datetime import datetime
+import pytz
 import log
+
 
 class BatchPersistence:
 
@@ -85,9 +87,11 @@ class BatchPersistence:
         repository.commit()
 
     def get_impacted_processes(self, items):
-        older_data = datetime.datetime.now()
+        older_data = pytz.UTC.localize(datetime.utcnow())
+        log.info(older_data)
         for item in items:
             date = parser.parse(item["_metadata"]["modified_at"])
+            log.info(date)
             if date < older_data:
                 older_data = date
 

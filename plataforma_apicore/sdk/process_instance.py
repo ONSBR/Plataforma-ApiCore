@@ -1,5 +1,5 @@
 from sdk.apicore import ApiCore
-
+import log
 
 class ProcessInstance(ApiCore):
 
@@ -10,6 +10,6 @@ class ProcessInstance(ApiCore):
         params = {
             "filter":"executedAfter",
             "systemId": self.system_id(),
-            "date": str(date)
+            "date": date.replace(tzinfo=None).isoformat("T")
         }
         return self.get("processInstance", params)

@@ -15,3 +15,5 @@ process_instance:
     - uuid
   version:
     - uuid
+  is_fork:
+    - boolean
