@@ -226,6 +226,7 @@ processInstance:
     byId: "id = :id"
     bySystemId: "system_id = :systemId"
     byOriginEvent: "origin_event_name = :originEvent"
+    executedAfter: "system_id = :systemId and start_execution >= :date order by start_execution"
 
 operationInstance:
   model: operation_instance
