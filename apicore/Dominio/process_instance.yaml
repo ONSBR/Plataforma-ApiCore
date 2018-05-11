@@ -13,3 +13,5 @@ process_instance:
     - string
   system_id:
     - uuid
+  version:
+    - uuid

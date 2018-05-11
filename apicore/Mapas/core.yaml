@@ -216,8 +216,11 @@ processInstance:
       column: status
     origin_event_name:
       column: origin_event_name
+    version:
+      column: version
   filters:
     byProcessId: "process_id = :processId"
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
     byId: "id = :id"
     bySystemId: "system_id = :systemId"
     byOriginEvent: "origin_event_name = :originEvent"
