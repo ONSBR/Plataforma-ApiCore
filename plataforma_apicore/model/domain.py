@@ -100,12 +100,13 @@ class branch_link(Base, TemporalModelMixin):
 
 class dependency_domain(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,entity=None,version=None, _metadata=None, **kwargs):
+    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,app_name=None,entity=None,version=None, _metadata=None, **kwargs):
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
         self.system_id = system_id
         self.process_id = process_id
+        self.app_name = app_name
         self.entity = entity
         self.version = version
         self._metadata = _metadata
@@ -115,7 +116,7 @@ class dependency_domain(Base, TemporalModelMixin):
 
     def dict(self):
         return {
-            "system_id": self.system_id,"process_id": self.process_id,"entity": self.entity,"version": self.version,
+            "system_id": self.system_id,"process_id": self.process_id,"app_name": self.app_name,"entity": self.entity,"version": self.version,
             "id": self.id,
             "branch":self.branch,
             "_metadata": self._metadata
@@ -126,10 +127,11 @@ class dependency_domain(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'system_id','process_id','entity','version', )
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'system_id','process_id','app_name','entity','version', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     process_id = Column(sap.UUID(as_uuid=True))
+    app_name = Column(String)
     entity = Column(String)
     version = Column(sap.UUID(as_uuid=True))
 

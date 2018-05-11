@@ -22,6 +22,8 @@ dependencyDomain:
       column: entity
     version:
       column: version
+    name:
+      column: app_name
   filters:
     bySystemId: "system_id = :systemId"
     byProcessId: "process_id = :processId"

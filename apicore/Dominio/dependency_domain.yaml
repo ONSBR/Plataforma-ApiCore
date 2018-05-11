@@ -3,6 +3,8 @@ dependency_domain:
     - uuid
   process_id:
     - uuid
+  app_name:
+    - string
   entity:
     - string
   version:
