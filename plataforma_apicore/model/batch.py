@@ -44,6 +44,7 @@ class BatchPersistence:
                 domain_obj["meta_instance_id"] = instance_id
                 domain_obj["branch"] = item["_metadata"].get("branch", "master")
                 domain_obj["from_id"] = item.get("fromId")
+                domain_obj["modified"] = item["_metadata"].get("modified_at", datetime.utcnow())
                 items.append(domain_obj)
         return items
 
@@ -81,6 +82,9 @@ class BatchPersistence:
 
         """
         processes = self.get_impacted_processes(items)
+        if len(processes) > 0:
+            log.info(f"Reprocessing {len(processes)} instances")
+
         log.info(processes)
         repository = Persistence(self.session)
         instances = repository.persist(items)
@@ -89,11 +93,12 @@ class BatchPersistence:
     def get_impacted_processes(self, items):
         older_data = pytz.UTC.localize(datetime.utcnow())
         log.info(older_data)
+        impacted_domain = set()
         for item in items:
             date = parser.parse(item["_metadata"]["modified_at"])
-            log.info(date)
             if date < older_data:
                 older_data = date
+            impacted_domain.add(item["_metadata"]["type"])
 
         log.info(f"Older data at {older_data}")
         return process_instance.ProcessInstance().get_processes_after(older_data)

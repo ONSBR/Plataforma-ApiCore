@@ -7,5 +7,7 @@ dependency_domain:
     - string
   entity:
     - string
+  column_name:
+    - string
   version:
     - uuid
