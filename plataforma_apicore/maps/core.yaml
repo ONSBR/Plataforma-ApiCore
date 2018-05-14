@@ -30,6 +30,7 @@ dependencyDomain:
     bySystemId: "system_id = :systemId"
     byProcessId: "process_id = :processId"
     byProcessIdAndVersion: "process_id = :processId and version = :version"
+    byProcessIdAndVersionInEntities: "process_id = :processId and version = :version and entity in ($entities)"
 
 branchLink:
   model: branch_link

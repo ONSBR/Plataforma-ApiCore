@@ -18,6 +18,9 @@ class BatchPersistence:
 
     def extract_head(self, head):
         self.event = head.get("event",{})
+        self.instance_id = head.get("instanceId")
+        self.process_id = head.get("processId")
+        self.system_id = head.get("systemId")
         self.fork = head.get("fork")
         if "map" in head:
             self.map = {
@@ -95,11 +98,17 @@ class BatchPersistence:
         log.info(older_data)
         impacted_domain = set()
         for item in items:
-            date = parser.parse(item["_metadata"]["modified_at"])
+            if "modified_at" in item["_metadata"]:
+                date = parser.parse(item["_metadata"]["modified_at"])
+            else:
+                date = pytz.UTC.localize(datetime.utcnow())
             if date < older_data:
                 older_data = date
             impacted_domain.add(item["_metadata"]["type"])
 
+
+
+        log.info(impacted_domain)
         log.info(f"Older data at {older_data}")
         return process_instance.ProcessInstance().get_processes_after(older_data)
 
