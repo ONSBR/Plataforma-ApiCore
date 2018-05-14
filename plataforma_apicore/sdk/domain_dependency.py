@@ -9,7 +9,7 @@ class DomainDependency(ApiCore):
     def get_dependency_by_process_and_version(self, process_id, version, entities):
         params = {
             "filter":"byProcessIdAndVersionInEntities",
-            "processId": self.system_id(),
+            "processId": process_id,
             "version": version,
             "entities": self.parse_array(entities)
         }
