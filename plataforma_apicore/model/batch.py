@@ -79,7 +79,8 @@ class BatchPersistence:
                 log.info(f"Need to re-execute {p['origin_event_name']} from process {p['appName']} instance {p['id']}")
                 self.event["scope"] = "reprocessing"
                 self.event["branch"] = p["branch"]
-                event_manager.push(self.event)
+                log.info(self.event)
+                #event_manager.push(self.event)
 
         except Exception as e:
             event_manager.push({"name":"system.process.persist.error", "instanceId":instance_id, "payload":{"instance_id":instance_id, "origin":self.event}})
@@ -117,8 +118,7 @@ class BatchPersistence:
         instances =  process_instance.ProcessInstance().get_processes_after(older_data, self.instance_id)
         deps = []
         for instance in instances:
-            if instance["id"] == self.instance_id:
-                continue
+            log.info(instance)
             result = domain_dependency.DomainDependency().get_dependency_by_process_and_version(instance["processId"],instance["version"], impacted_domain)
             if len(result) > 0:
                 instance["appName"] = result[0]["name"]
