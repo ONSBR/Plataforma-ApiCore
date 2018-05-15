@@ -115,7 +115,7 @@ class BatchPersistence:
             impacted_domain.add(item["_metadata"]["type"])
 
         log.info(f"Older data at {older_data}")
-        instances =  process_instance.ProcessInstance().get_processes_after(older_data, self.instance_id)
+        instances =  process_instance.ProcessInstance().get_processes_after(older_data, self.instance_id, self.process_id)
         deps = []
         for instance in instances:
             log.info(instance)
@@ -124,5 +124,7 @@ class BatchPersistence:
                 instance["appName"] = result[0]["name"]
                 instance["branch"] = current_branch
                 deps.append(instance)
+        log.info("--------------------------------------------------------------")
+        log.info(deps)
         return deps
 
