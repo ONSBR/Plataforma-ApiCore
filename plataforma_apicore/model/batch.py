@@ -73,14 +73,19 @@ class BatchPersistence:
             name = ".".join(parts)
             log.info(f"pushing event {name} to event manager")
             event_manager.push({"name":self.event_out, "instanceId":instance_id, "payload":{"instance_id":instance_id}})
+
+            processes = self.group_by_process_and_version(processes)
             if len(processes) > 0:
                 log.info(f"Reprocessing {len(processes)} instances")
+
             for p in processes:
                 log.info(f"Need to re-execute {p['origin_event_name']} from process {p['appName']} instance {p['id']}")
-                self.event["scope"] = "reprocessing"
-                self.event["branch"] = p["branch"]
-                log.info(self.event)
-                #event_manager.push(self.event)
+                head = self.get_head_of_process_memory(p["id"])
+                event_to_reprocess = head["event"]
+                event_to_reprocess["scope"] = "execution"
+                event_to_reprocess["branch"] = p["branch"]
+                log.info(event_to_reprocess)
+                event_manager.push(event_to_reprocess)
 
         except Exception as e:
             event_manager.push({"name":"system.process.persist.error", "instanceId":instance_id, "payload":{"instance_id":instance_id, "origin":self.event}})
@@ -88,6 +93,16 @@ class BatchPersistence:
             log.critical(e)
             raise e
 
+
+    def group_by_process_and_version(self, processes):
+        exist = set()
+        result = []
+        for p in processes:
+            key = f"{p['processId']}:{p['version']}"
+            if not key in exist:
+                exist.add(key)
+                result.append(p)
+        return result
 
     def persist(self, items):
         """
@@ -118,7 +133,6 @@ class BatchPersistence:
         instances =  process_instance.ProcessInstance().get_processes_after(older_data, self.instance_id, self.process_id)
         deps = []
         for instance in instances:
-            log.info(instance)
             result = domain_dependency.DomainDependency().get_dependency_by_process_and_version(instance["processId"],instance["version"], impacted_domain)
             if len(result) > 0:
                 instance["appName"] = result[0]["name"]

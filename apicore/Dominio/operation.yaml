@@ -15,3 +15,5 @@ operation:
     - string
   commit:
     - boolean
+  reprocessable:
+    - boolean

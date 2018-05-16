@@ -179,6 +179,8 @@ operation:
       column: commit
     version:
       column: version
+    reprocessable:
+      column: reprocessable
   filters:
     byProcessId: "process_id = :processId"
     byId: "id = :id"
