@@ -12,7 +12,8 @@ def get_db_name():
 
 class branch(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,name=None,description=None,owner=None,status=None,started_at=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,name=None,description=None,owner=None,status=None,started_at=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -49,7 +50,7 @@ class branch(Base, TemporalModelMixin):
     status = Column(String)
     started_at = Column(DateTime)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -59,7 +60,8 @@ class branch(Base, TemporalModelMixin):
 
 class branch_link(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,entity_name=None,branch_name=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,entity_name=None,branch_name=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -90,7 +92,7 @@ class branch_link(Base, TemporalModelMixin):
     entity_name = Column(String)
     branch_name = Column(String)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -100,7 +102,8 @@ class branch_link(Base, TemporalModelMixin):
 
 class dependency_domain(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,app_name=None,entity=None,column_name=None,version=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,app_name=None,entity=None,column_name=None,version=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -137,7 +140,7 @@ class dependency_domain(Base, TemporalModelMixin):
     column_name = Column(String)
     version = Column(sap.UUID(as_uuid=True))
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -147,7 +150,8 @@ class dependency_domain(Base, TemporalModelMixin):
 
 class domain_model(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,model_name=None,model=None,version=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,model_name=None,model=None,version=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -180,7 +184,7 @@ class domain_model(Base, TemporalModelMixin):
     model = Column(String)
     version = Column(String)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -190,7 +194,8 @@ class domain_model(Base, TemporalModelMixin):
 
 class event(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,direction=None,operation_id=None,process_id=None,system_id=None,presentation_id=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, name=None,direction=None,operation_id=None,process_id=None,system_id=None,presentation_id=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -227,7 +232,7 @@ class event(Base, TemporalModelMixin):
     system_id = Column(sap.UUID(as_uuid=True))
     presentation_id = Column(sap.UUID(as_uuid=True))
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -237,7 +242,8 @@ class event(Base, TemporalModelMixin):
 
 class installed_apps(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,host=None,name=None,port=None,type=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,host=None,name=None,port=None,type=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -272,7 +278,7 @@ class installed_apps(Base, TemporalModelMixin):
     port = Column(Integer)
     type = Column(String)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -282,7 +288,8 @@ class installed_apps(Base, TemporalModelMixin):
 
 class map(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,name=None,content=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,name=None,content=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -315,7 +322,7 @@ class map(Base, TemporalModelMixin):
     name = Column(String)
     content = Column(Text)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -325,7 +332,8 @@ class map(Base, TemporalModelMixin):
 
 class operation(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,process_id=None,system_id=None,version=None,event_in=None,event_out=None,image=None,commit=None,reprocessable=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, name=None,process_id=None,system_id=None,version=None,event_in=None,event_out=None,image=None,commit=None,reprocessable=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -368,7 +376,7 @@ class operation(Base, TemporalModelMixin):
     commit = Column(Boolean)
     reprocessable = Column(Boolean)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -378,7 +386,8 @@ class operation(Base, TemporalModelMixin):
 
 class operation_instance(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None,image=None,event_name=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None,image=None,event_name=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -419,7 +428,7 @@ class operation_instance(Base, TemporalModelMixin):
     image = Column(String)
     event_name = Column(String)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -429,7 +438,8 @@ class operation_instance(Base, TemporalModelMixin):
 
 class presentation(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,url=None,system_id=None,version=None,image=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, name=None,url=None,system_id=None,version=None,image=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -464,7 +474,7 @@ class presentation(Base, TemporalModelMixin):
     version = Column(sap.UUID(as_uuid=True))
     image = Column(String)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -474,7 +484,8 @@ class presentation(Base, TemporalModelMixin):
 
 class presentation_instance(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, presentation_id=None,system_id=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, presentation_id=None,system_id=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -503,7 +514,7 @@ class presentation_instance(Base, TemporalModelMixin):
     presentation_id = Column(sap.UUID(as_uuid=True))
     system_id = Column(sap.UUID(as_uuid=True))
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -513,7 +524,8 @@ class presentation_instance(Base, TemporalModelMixin):
 
 class process(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,relative_path=None,deploy_date=None,tag=None,image_id=None,system_id=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, name=None,relative_path=None,deploy_date=None,tag=None,image_id=None,system_id=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -550,7 +562,7 @@ class process(Base, TemporalModelMixin):
     image_id = Column(String)
     system_id = Column(sap.UUID(as_uuid=True))
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -560,7 +572,8 @@ class process(Base, TemporalModelMixin):
 
 class process_instance(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, start_execution=None,end_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None,version=None,is_fork=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, start_execution=None,end_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None,version=None,is_fork=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -603,7 +616,7 @@ class process_instance(Base, TemporalModelMixin):
     version = Column(sap.UUID(as_uuid=True))
     is_fork = Column(Boolean)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -613,7 +626,8 @@ class process_instance(Base, TemporalModelMixin):
 
 class reproduction(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,original_instance_id=None,instance_id=None,owner=None,external_id=None,execution_start_date=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,original_instance_id=None,instance_id=None,owner=None,external_id=None,execution_start_date=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -652,7 +666,7 @@ class reproduction(Base, TemporalModelMixin):
     external_id = Column(String)
     execution_start_date = Column(DateTime)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -662,7 +676,8 @@ class reproduction(Base, TemporalModelMixin):
 
 class sent_event(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, event_id=None,presentation_instance_id=None,operation_instance_id=None,event_date=None,reference_date=None,payload=None,is_reproduction=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, event_id=None,presentation_instance_id=None,operation_instance_id=None,event_date=None,reference_date=None,payload=None,is_reproduction=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -701,7 +716,7 @@ class sent_event(Base, TemporalModelMixin):
     payload = Column(Text)
     is_reproduction = Column(Boolean)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
@@ -711,7 +726,8 @@ class sent_event(Base, TemporalModelMixin):
 
 class system(Base, TemporalModelMixin):
 
-    def __init__(self, id=None, deleted=False, meta_instance_id=None, name=None,description=None,version=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, name=None,description=None,version=None, _metadata=None, **kwargs):
+        self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
@@ -742,7 +758,7 @@ class system(Base, TemporalModelMixin):
     description = Column(String)
     version = Column(String)
 
-    id = Column(sap.UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
     meta_instance_id = Column(sap.UUID(as_uuid=True))
     modified = Column(DateTime(), default=datetime.utcnow())
