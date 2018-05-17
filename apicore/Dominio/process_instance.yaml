@@ -17,3 +17,5 @@ process_instance:
     - uuid
   is_fork:
     - boolean
+  baseline:
+    - string

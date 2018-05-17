@@ -213,6 +213,8 @@ processInstance:
       column: version
     isFork:
       column: is_fork
+    baseline:
+      column: baseline
   filters:
     byProcessId: "process_id = :processId"
     byProcessIdAndVersion: "process_id = :processId and version = :version"

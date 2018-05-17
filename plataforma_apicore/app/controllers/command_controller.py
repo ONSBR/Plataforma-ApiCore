@@ -45,9 +45,6 @@ class CommandController(Component):
 
             if "_metadata" in o and "modified_at" in o["_metadata"]:
                 curr["modified"] = parser.parse(o["_metadata"]["modified_at"])
-
-            curr["from_id"] = o.get("fromId")
-
             yield curr
 
     def from_domain(self, instances):
