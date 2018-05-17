@@ -185,6 +185,7 @@ operation:
     byProcessId: "process_id = :processId"
     byId: "id = :id"
     byEvent: "event_in = :event"
+    byEventAndVersion: "event_in = :event and version = :version"
     bySystemId: "system_id = :systemId"
     byName: "name = :name"
     bindingEvent: "event_in = :event or event_out = :event"
