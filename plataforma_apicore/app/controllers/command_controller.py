@@ -13,6 +13,7 @@ class CommandController(Component):
     """ Command Controller persist data on domain """
 
     def __init__(self, app_id, body, instance_id, reference_date, process_id):
+        Component.__init__(self)
         self.app_id = app_id
         self.body = body
         self.mapper = MapBuilder().build()
