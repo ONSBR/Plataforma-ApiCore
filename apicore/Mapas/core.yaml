@@ -215,13 +215,15 @@ processInstance:
       column: is_fork
     baseline:
       column: baseline
+    scope:
+      column: scope
   filters:
     byProcessId: "process_id = :processId"
     byProcessIdAndVersion: "process_id = :processId and version = :version"
     byId: "id = :id"
     bySystemId: "system_id = :systemId"
     byOriginEvent: "origin_event_name = :originEvent"
-    executedAfter: "system_id = :systemId and start_execution > :date and is_fork is null and id <> :instanceId and status = 'finished' and process_id <> :processId order by start_execution"
+    executedAfter: "system_id = :systemId and start_execution > :date and is_fork is null and id <> :instanceId and status = 'finished' and scope='execution'  and process_id <> :processId order by start_execution"
 
 operationInstance:
   model: operation_instance

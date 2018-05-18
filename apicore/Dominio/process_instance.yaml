@@ -19,3 +19,5 @@ process_instance:
     - boolean
   baseline:
     - string
+  scope:
+    - string

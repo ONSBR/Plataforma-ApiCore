@@ -76,7 +76,7 @@ class BatchPersistence:
             parts.append("done")
             name = ".".join(parts)
             log.info(f"pushing event {name} to event manager")
-            event_manager.push({"name":self.event_out, "instanceId":instance_id, "payload":{"instance_id":instance_id}})
+            event_manager.push({"name":self.event_out, "instanceId":instance_id, "scope":self.event["scope"] , "payload":{"instance_id":instance_id}})
             self.dispatch_reprocessing_events(clone_items, self.instance_id, self.process_id)
 
         except Exception as e:
