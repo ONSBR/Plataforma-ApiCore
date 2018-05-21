@@ -33,6 +33,7 @@ class branch(Base, TemporalModelMixin):
             "system_id": self.system_id,"name": self.name,"description": self.description,"owner": self.owner,"status": self.status,"started_at": self.started_at,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -78,6 +79,7 @@ class branch_link(Base, TemporalModelMixin):
             "system_id": self.system_id,"entity_name": self.entity_name,"branch_name": self.branch_name,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -123,6 +125,7 @@ class dependency_domain(Base, TemporalModelMixin):
             "system_id": self.system_id,"process_id": self.process_id,"app_name": self.app_name,"entity": self.entity,"column_name": self.column_name,"version": self.version,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -169,6 +172,7 @@ class domain_model(Base, TemporalModelMixin):
             "system_id": self.system_id,"model_name": self.model_name,"model": self.model,"version": self.version,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -215,6 +219,7 @@ class event(Base, TemporalModelMixin):
             "name": self.name,"direction": self.direction,"operation_id": self.operation_id,"process_id": self.process_id,"system_id": self.system_id,"presentation_id": self.presentation_id,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -262,6 +267,7 @@ class installed_apps(Base, TemporalModelMixin):
             "system_id": self.system_id,"host": self.host,"name": self.name,"port": self.port,"type": self.type,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -307,6 +313,7 @@ class map(Base, TemporalModelMixin):
             "system_id": self.system_id,"process_id": self.process_id,"name": self.name,"content": self.content,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -356,6 +363,7 @@ class operation(Base, TemporalModelMixin):
             "name": self.name,"process_id": self.process_id,"system_id": self.system_id,"version": self.version,"event_in": self.event_in,"event_out": self.event_out,"image": self.image,"commit": self.commit,"reprocessable": self.reprocessable,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -409,6 +417,7 @@ class operation_instance(Base, TemporalModelMixin):
             "status": self.status,"must_commit": self.must_commit,"process_instance_id": self.process_instance_id,"process_id": self.process_id,"system_id": self.system_id,"operation_id": self.operation_id,"image": self.image,"event_name": self.event_name,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -458,6 +467,7 @@ class presentation(Base, TemporalModelMixin):
             "name": self.name,"url": self.url,"system_id": self.system_id,"version": self.version,"image": self.image,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -501,6 +511,7 @@ class presentation_instance(Base, TemporalModelMixin):
             "presentation_id": self.presentation_id,"system_id": self.system_id,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -545,6 +556,7 @@ class process(Base, TemporalModelMixin):
             "name": self.name,"relative_path": self.relative_path,"deploy_date": self.deploy_date,"tag": self.tag,"image_id": self.image_id,"system_id": self.system_id,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -598,6 +610,7 @@ class process_instance(Base, TemporalModelMixin):
             "start_execution": self.start_execution,"end_execution": self.end_execution,"reference_date": self.reference_date,"status": self.status,"process_id": self.process_id,"origin_event_name": self.origin_event_name,"system_id": self.system_id,"version": self.version,"is_fork": self.is_fork,"baseline": self.baseline,"scope": self.scope,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -652,6 +665,7 @@ class reproduction(Base, TemporalModelMixin):
             "system_id": self.system_id,"process_id": self.process_id,"original_instance_id": self.original_instance_id,"instance_id": self.instance_id,"owner": self.owner,"external_id": self.external_id,"execution_start_date": self.execution_start_date,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -702,6 +716,7 @@ class sent_event(Base, TemporalModelMixin):
             "event_id": self.event_id,"presentation_instance_id": self.presentation_instance_id,"operation_instance_id": self.operation_instance_id,"event_date": self.event_date,"reference_date": self.reference_date,"payload": self.payload,"is_reproduction": self.is_reproduction,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
@@ -748,6 +763,7 @@ class system(Base, TemporalModelMixin):
             "name": self.name,"description": self.description,"version": self.version,
             "id": self.id,
             "branch":self.branch,
+            "modified":self.modified,
             "_metadata": self._metadata
         }
 
