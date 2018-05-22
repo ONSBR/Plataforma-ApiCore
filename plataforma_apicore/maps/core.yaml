@@ -24,8 +24,6 @@ dependencyDomain:
       column: version
     name:
       column: app_name
-    columnName:
-      column: column_name
     filter:
       column: filter
   filters:

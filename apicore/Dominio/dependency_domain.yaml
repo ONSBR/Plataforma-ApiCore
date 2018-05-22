@@ -7,8 +7,6 @@ dependency_domain:
     - string
   entity:
     - string
-  column_name:
-    - string
   filter:
     - string
   version:
