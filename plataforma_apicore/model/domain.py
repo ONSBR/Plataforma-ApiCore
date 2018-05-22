@@ -104,7 +104,7 @@ class branch_link(Base, TemporalModelMixin):
 
 class dependency_domain(Base, TemporalModelMixin):
 
-    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,app_name=None,entity=None,column_name=None,version=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,app_name=None,entity=None,column_name=None,filter=None,version=None, _metadata=None, **kwargs):
         self.rid = rid
         self.id = id
         self.deleted = deleted
@@ -114,6 +114,7 @@ class dependency_domain(Base, TemporalModelMixin):
         self.app_name = app_name
         self.entity = entity
         self.column_name = column_name
+        self.filter = filter
         self.version = version
         self._metadata = _metadata
         self.branch = kwargs.get('branch', 'master')
@@ -122,7 +123,7 @@ class dependency_domain(Base, TemporalModelMixin):
 
     def dict(self):
         return {
-            "system_id": self.system_id,"process_id": self.process_id,"app_name": self.app_name,"entity": self.entity,"column_name": self.column_name,"version": self.version,
+            "system_id": self.system_id,"process_id": self.process_id,"app_name": self.app_name,"entity": self.entity,"column_name": self.column_name,"filter": self.filter,"version": self.version,
             "id": self.id,
             "branch":self.branch,
             "modified":self.modified,
@@ -134,13 +135,14 @@ class dependency_domain(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'system_id','process_id','app_name','entity','column_name','version', )
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'system_id','process_id','app_name','entity','column_name','filter','version', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     process_id = Column(sap.UUID(as_uuid=True))
     app_name = Column(String)
     entity = Column(String)
     column_name = Column(String)
+    filter = Column(String)
     version = Column(sap.UUID(as_uuid=True))
 
     id = Column(sap.UUID(as_uuid=True), default=uuid4)

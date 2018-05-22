@@ -9,5 +9,7 @@ dependency_domain:
     - string
   column_name:
     - string
+  filter:
+    - string
   version:
     - uuid
