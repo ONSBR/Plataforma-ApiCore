@@ -190,6 +190,7 @@ operation:
     byName: "name = :name"
     bindingEvent: "event_in = :event or event_out = :event"
     byProcessIdAndVersion: "process_id = :processId and version = :version"
+    bySystemIdAndEventIn: "system_id = :systemId and event_in = :event"
 
 
 processInstance:
