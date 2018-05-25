@@ -445,6 +445,49 @@ class operation_instance(Base, TemporalModelMixin):
     from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
+class permissions(Base, TemporalModelMixin):
+
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, role_id=None,system_id=None,process_id=None, _metadata=None, **kwargs):
+        self.rid = rid
+        self.id = id
+        self.deleted = deleted
+        self.meta_instance_id = meta_instance_id
+        self.role_id = role_id
+        self.system_id = system_id
+        self.process_id = process_id
+        self._metadata = _metadata
+        self.branch = kwargs.get('branch', 'master')
+        self.from_id = kwargs.get('from_id')
+        self.modified = kwargs.get('modified')
+
+    def dict(self):
+        return {
+            "role_id": self.role_id,"system_id": self.system_id,"process_id": self.process_id,
+            "id": self.id,
+            "branch":self.branch,
+            "modified":self.modified,
+            "_metadata": self._metadata
+        }
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    class Temporal:
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'role_id','system_id','process_id', )
+
+    role_id = Column(sap.UUID(as_uuid=True))
+    system_id = Column(sap.UUID(as_uuid=True))
+    process_id = Column(sap.UUID(as_uuid=True))
+
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
+    deleted = Column(sap.BOOLEAN(), default=False)
+    meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
+
+
 class presentation(Base, TemporalModelMixin):
 
     def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, name=None,url=None,system_id=None,version=None,image=None, _metadata=None, **kwargs):
@@ -692,6 +735,45 @@ class reproduction(Base, TemporalModelMixin):
     from_id = Column(sap.UUID(as_uuid=True), nullable=True)
 
 
+class roles(Base, TemporalModelMixin):
+
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, name=None, _metadata=None, **kwargs):
+        self.rid = rid
+        self.id = id
+        self.deleted = deleted
+        self.meta_instance_id = meta_instance_id
+        self.name = name
+        self._metadata = _metadata
+        self.branch = kwargs.get('branch', 'master')
+        self.from_id = kwargs.get('from_id')
+        self.modified = kwargs.get('modified')
+
+    def dict(self):
+        return {
+            "name": self.name,
+            "id": self.id,
+            "branch":self.branch,
+            "modified":self.modified,
+            "_metadata": self._metadata
+        }
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    class Temporal:
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'name', )
+
+    name = Column(String)
+
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
+    deleted = Column(sap.BOOLEAN(), default=False)
+    meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
+
+
 class sent_event(Base, TemporalModelMixin):
 
     def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, event_id=None,presentation_instance_id=None,operation_instance_id=None,event_date=None,reference_date=None,payload=None,is_reproduction=None, _metadata=None, **kwargs):
@@ -777,6 +859,88 @@ class system(Base, TemporalModelMixin):
     name = Column(String)
     description = Column(String)
     version = Column(String)
+
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
+    deleted = Column(sap.BOOLEAN(), default=False)
+    meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
+
+
+class user_roles(Base, TemporalModelMixin):
+
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, user_id=None,role_id=None, _metadata=None, **kwargs):
+        self.rid = rid
+        self.id = id
+        self.deleted = deleted
+        self.meta_instance_id = meta_instance_id
+        self.user_id = user_id
+        self.role_id = role_id
+        self._metadata = _metadata
+        self.branch = kwargs.get('branch', 'master')
+        self.from_id = kwargs.get('from_id')
+        self.modified = kwargs.get('modified')
+
+    def dict(self):
+        return {
+            "user_id": self.user_id,"role_id": self.role_id,
+            "id": self.id,
+            "branch":self.branch,
+            "modified":self.modified,
+            "_metadata": self._metadata
+        }
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    class Temporal:
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'user_id','role_id', )
+
+    user_id = Column(sap.UUID(as_uuid=True))
+    role_id = Column(sap.UUID(as_uuid=True))
+
+    id = Column(sap.UUID(as_uuid=True), default=uuid4)
+    deleted = Column(sap.BOOLEAN(), default=False)
+    meta_instance_id = Column(sap.UUID(as_uuid=True))
+    modified = Column(DateTime(), default=datetime.utcnow())
+    branch = Column(String(), default='master')
+    from_id = Column(sap.UUID(as_uuid=True), nullable=True)
+
+
+class users(Base, TemporalModelMixin):
+
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, username=None,hash_password=None, _metadata=None, **kwargs):
+        self.rid = rid
+        self.id = id
+        self.deleted = deleted
+        self.meta_instance_id = meta_instance_id
+        self.username = username
+        self.hash_password = hash_password
+        self._metadata = _metadata
+        self.branch = kwargs.get('branch', 'master')
+        self.from_id = kwargs.get('from_id')
+        self.modified = kwargs.get('modified')
+
+    def dict(self):
+        return {
+            "username": self.username,"hash_password": self.hash_password,
+            "id": self.id,
+            "branch":self.branch,
+            "modified":self.modified,
+            "_metadata": self._metadata
+        }
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    class Temporal:
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'username','hash_password', )
+
+    username = Column(String)
+    hash_password = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)

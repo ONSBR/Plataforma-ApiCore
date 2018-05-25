@@ -1,5 +1,12 @@
 from sdk.apicore import ApiCore
 
+class BranchLinkDTO:
+    def __init__(self, **kwargs):
+        self.branch_name = kwargs.get('branchName')
+        self.entity = kwargs.get('entity')
+        self.id = kwargs.get('id')
+        self.system_id = kwargs.get('systemId')
+        self._metadata = kwargs.get('_metadata')
 
 class BranchLink(ApiCore):
 
@@ -15,7 +22,8 @@ class BranchLink(ApiCore):
             "systemId": self.system_id(),
             "branch": branch
         }
-        return self.get("branchLink", params)
+        result = self.get("branchLink", params)
+        return list(map(lambda x : BranchLinkDTO(**x), result))
 
     def save(self, items):
         for i in items:
