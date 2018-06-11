@@ -1,0 +1,13 @@
+deploy:
+  system_id:
+    - uuid
+  process_id:
+    - uuid
+  version:
+    - uuid
+  name:
+    - string
+  status:
+    - string
+  user:
+    - string

@@ -1,7 +1,7 @@
 {
     "docker": {
-        "tag": "registry:5000/apicore:19a795af-a450-4592-b3f0-1c8e899497b5",
-        "worker_tag": "registry:5000/apicore_worker:19a795af-a450-4592-b3f0-1c8e899497b5",
+        "tag": "registry:5000/apicore:d6fa8030-6944-451b-8e4d-ac103e94c8d4",
+        "worker_tag": "registry:5000/apicore_worker:d6fa8030-6944-451b-8e4d-ac103e94c8d4",
         "port": 9110
     }
 }
