@@ -153,7 +153,7 @@ class dependency_domain(Base, TemporalModelMixin):
 
 class deploy(Base, TemporalModelMixin):
 
-    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,version=None,name=None,status=None,user=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,version=None,name=None,status=None, _metadata=None, **kwargs):
         self.rid = rid
         self.id = id
         self.deleted = deleted
@@ -163,7 +163,6 @@ class deploy(Base, TemporalModelMixin):
         self.version = version
         self.name = name
         self.status = status
-        self.user = user
         self._metadata = _metadata
         self.branch = kwargs.get('branch', 'master')
         self.from_id = kwargs.get('from_id')
@@ -171,7 +170,7 @@ class deploy(Base, TemporalModelMixin):
 
     def dict(self):
         return {
-            "system_id": self.system_id,"process_id": self.process_id,"version": self.version,"name": self.name,"status": self.status,"user": self.user,
+            "system_id": self.system_id,"process_id": self.process_id,"version": self.version,"name": self.name,"status": self.status,
             "id": self.id,
             "branch":self.branch,
             "modified":self.modified,
@@ -183,14 +182,13 @@ class deploy(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'system_id','process_id','version','name','status','user', )
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'system_id','process_id','version','name','status', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     process_id = Column(sap.UUID(as_uuid=True))
     version = Column(sap.UUID(as_uuid=True))
     name = Column(String)
     status = Column(String)
-    user = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)

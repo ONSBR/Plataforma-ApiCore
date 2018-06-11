@@ -93,15 +93,12 @@ deploy:
       column: process_id
     version:
       column: version
-    user:
-      column: user
     status:
       column: status
   filters:
     bySystemId: "system_id = :systemId"
     byProcessId: "process_id = :processId"
     byProcessIdAndVersion: "process_id = :processId and version = :version"
-    byUser: "user = :user"
 
 reproduction:
  model: reproduction
