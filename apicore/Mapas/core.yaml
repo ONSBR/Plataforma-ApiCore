@@ -220,16 +220,12 @@ processInstance:
       column: system_id
     startExecution:
       column: start_execution
-    endExecution:
-      column: end_execution
     referenceDate:
       column: reference_date
     status:
       column: status
     origin_event_name:
       column: origin_event_name
-    version:
-      column: version
     isFork:
       column: is_fork
     baseline:
@@ -238,7 +234,6 @@ processInstance:
       column: scope
   filters:
     byProcessId: "process_id = :processId"
-    byProcessIdAndVersion: "process_id = :processId and version = :version"
     byId: "id = :id"
     bySystemId: "system_id = :systemId"
     byOriginEvent: "origin_event_name = :originEvent"
@@ -261,9 +256,12 @@ operationInstance:
       column: must_commit
     image:
       column: image
+    version:
+      column: version
     eventName:
       column: event_name
   filters:
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
     byProcessInstanceId: " process_instance_id = :processInstanceId"
     byInstanceIdEventName: " process_instance_id = :processInstanceId and event_name = :eventName"
     byOperationId: "operation_id = :operationId"

@@ -15,3 +15,5 @@ operation_instance:
     - string
   event_name:
     - string
+  version:
+    - string

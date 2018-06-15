@@ -1,8 +1,6 @@
 process_instance:
   start_execution:
     - datetime
-  end_execution:
-    - datetime
   reference_date:
     - datetime
   status:
@@ -12,8 +10,6 @@ process_instance:
   origin_event_name:
     - string
   system_id:
-    - uuid
-  version:
     - uuid
   is_fork:
     - boolean

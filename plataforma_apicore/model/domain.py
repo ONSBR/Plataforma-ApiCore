@@ -441,7 +441,7 @@ class operation(Base, TemporalModelMixin):
 
 class operation_instance(Base, TemporalModelMixin):
 
-    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None,image=None,event_name=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, status=None,must_commit=None,process_instance_id=None,process_id=None,system_id=None,operation_id=None,image=None,event_name=None,version=None, _metadata=None, **kwargs):
         self.rid = rid
         self.id = id
         self.deleted = deleted
@@ -454,6 +454,7 @@ class operation_instance(Base, TemporalModelMixin):
         self.operation_id = operation_id
         self.image = image
         self.event_name = event_name
+        self.version = version
         self._metadata = _metadata
         self.branch = kwargs.get('branch', 'master')
         self.from_id = kwargs.get('from_id')
@@ -461,7 +462,7 @@ class operation_instance(Base, TemporalModelMixin):
 
     def dict(self):
         return {
-            "status": self.status,"must_commit": self.must_commit,"process_instance_id": self.process_instance_id,"process_id": self.process_id,"system_id": self.system_id,"operation_id": self.operation_id,"image": self.image,"event_name": self.event_name,
+            "status": self.status,"must_commit": self.must_commit,"process_instance_id": self.process_instance_id,"process_id": self.process_id,"system_id": self.system_id,"operation_id": self.operation_id,"image": self.image,"event_name": self.event_name,"version": self.version,
             "id": self.id,
             "branch":self.branch,
             "modified":self.modified,
@@ -473,7 +474,7 @@ class operation_instance(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'status','must_commit','process_instance_id','process_id','system_id','operation_id','image','event_name', )
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'status','must_commit','process_instance_id','process_id','system_id','operation_id','image','event_name','version', )
 
     status = Column(String)
     must_commit = Column(Boolean)
@@ -483,6 +484,7 @@ class operation_instance(Base, TemporalModelMixin):
     operation_id = Column(sap.UUID(as_uuid=True))
     image = Column(String)
     event_name = Column(String)
+    version = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
@@ -631,19 +633,17 @@ class process(Base, TemporalModelMixin):
 
 class process_instance(Base, TemporalModelMixin):
 
-    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, start_execution=None,end_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None,version=None,is_fork=None,baseline=None,scope=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, start_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None,is_fork=None,baseline=None,scope=None, _metadata=None, **kwargs):
         self.rid = rid
         self.id = id
         self.deleted = deleted
         self.meta_instance_id = meta_instance_id
         self.start_execution = start_execution
-        self.end_execution = end_execution
         self.reference_date = reference_date
         self.status = status
         self.process_id = process_id
         self.origin_event_name = origin_event_name
         self.system_id = system_id
-        self.version = version
         self.is_fork = is_fork
         self.baseline = baseline
         self.scope = scope
@@ -654,7 +654,7 @@ class process_instance(Base, TemporalModelMixin):
 
     def dict(self):
         return {
-            "start_execution": self.start_execution,"end_execution": self.end_execution,"reference_date": self.reference_date,"status": self.status,"process_id": self.process_id,"origin_event_name": self.origin_event_name,"system_id": self.system_id,"version": self.version,"is_fork": self.is_fork,"baseline": self.baseline,"scope": self.scope,
+            "start_execution": self.start_execution,"reference_date": self.reference_date,"status": self.status,"process_id": self.process_id,"origin_event_name": self.origin_event_name,"system_id": self.system_id,"is_fork": self.is_fork,"baseline": self.baseline,"scope": self.scope,
             "id": self.id,
             "branch":self.branch,
             "modified":self.modified,
@@ -666,16 +666,14 @@ class process_instance(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'start_execution','end_execution','reference_date','status','process_id','origin_event_name','system_id','version','is_fork','baseline','scope', )
+        fields = ('deleted','modified', 'meta_instance_id', 'from_id', 'branch', 'start_execution','reference_date','status','process_id','origin_event_name','system_id','is_fork','baseline','scope', )
 
     start_execution = Column(DateTime)
-    end_execution = Column(DateTime)
     reference_date = Column(DateTime)
     status = Column(String)
     process_id = Column(sap.UUID(as_uuid=True))
     origin_event_name = Column(String)
     system_id = Column(sap.UUID(as_uuid=True))
-    version = Column(sap.UUID(as_uuid=True))
     is_fork = Column(Boolean)
     baseline = Column(String)
     scope = Column(String)
