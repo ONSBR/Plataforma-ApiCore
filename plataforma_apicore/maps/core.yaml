@@ -95,6 +95,10 @@ deploy:
       column: version
     status:
       column: status
+    image:
+      column: image
+    containerId:
+      column: container_id
   filters:
     bySystemId: "system_id = :systemId"
     byProcessId: "process_id = :processId"

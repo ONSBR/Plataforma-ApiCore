@@ -9,3 +9,7 @@ deploy:
     - string
   status:
     - string
+  image:
+    - string
+  container_id:
+    - string
