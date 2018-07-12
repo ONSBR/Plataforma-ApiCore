@@ -241,7 +241,7 @@ processInstance:
     byId: "id = :id"
     bySystemId: "system_id = :systemId"
     byOriginEvent: "origin_event_name = :originEvent"
-    executedAfter: "system_id = :systemId and start_execution > :date and is_fork is null and id <> :instanceId and status = 'finished' and scope in ('execution','reprocessing') order by start_execution"
+    executedAfter: "system_id = :systemId and modified >= :date and is_fork is null and id <> :instanceId and status = 'finished' and scope in ('execution','reprocessing') order by start_execution"
 
 operationInstance:
   model: operation_instance
