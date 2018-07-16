@@ -1,0 +1,326 @@
+system:
+  model: system
+  fields:
+    name:
+      column: name
+    description:
+      column: description
+    version:
+      column: version
+  filters:
+    byName: "name = :name"
+    byId: "id = :id"
+
+dependencyDomain:
+  model: dependency_domain
+  fields:
+    systemId:
+      column: system_id
+    processId:
+      column: process_id
+    entity:
+      column: entity
+    version:
+      column: version
+    name:
+      column: app_name
+    filter:
+      column: filter
+  filters:
+    bySystemId: "system_id = :systemId"
+    byProcessId: "process_id = :processId"
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
+    byProcessIdAndVersionInEntities: "process_id = :processId and version = :version and entity in ($entities)"
+    byEntites: "system_id = :systemId and entity in ($entities)"
+
+branchLink:
+  model: branch_link
+  fields:
+    systemId:
+      column: system_id
+    entity:
+      column: entity_name
+    branchName:
+      column: branch_name
+  filters:
+    bySystemId: "system_id = :systemId"
+    bySystemIdAndBranchName: "system_id = :systemId and branch_name = :branch"
+
+branch:
+  model: branch
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+    description:
+      column: description
+    owner:
+      column: owner
+    startedAt:
+      column: started_at
+    status:
+      column: status
+  filters:
+    bySystemId: "system_id = :systemId"
+    bySystemIdAndOwner: "system_id = :systemId and owner = :owner"
+    bySystemIdAndName: "system_id = :systemId and name = :name"
+    bySystemIdAndStatus: "system_id = :systemId and status = :status"
+
+domain_model:
+  model: domain_model
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: model_name
+    model:
+      column: model
+    version:
+      column: version
+  filters:
+    bySystemId: "system_id = :systemId"
+    bySystemIdAndName: "system_id = :systemId and model_name = :name"
+    byVersion: "version = :version"
+
+deploy:
+  model: deploy
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+    processId:
+      column: process_id
+    version:
+      column: version
+    status:
+      column: status
+    image:
+      column: image
+    containerId:
+      column: container_id
+  filters:
+    bySystemId: "system_id = :systemId"
+    byProcessId: "process_id = :processId"
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
+
+reproduction:
+ model: reproduction
+ fields:
+   originalId:
+     column: original_instance_id
+   instanceId:
+     column: instance_id
+   owner:
+     column: owner
+   externalId:
+     column: external_id
+   systemId:
+     column: system_id
+   processId:
+     column: process_id
+   start_date:
+     column: execution_start_date
+ filters:
+   byOriginal: "original_instance_id = :original"
+   byInstance: "instance_id = :instance"
+   byOwner: "owner = :owner"
+   byId: "id = :id"
+   byExternalId: "external_id = :externalId"
+
+map:
+  model: map
+  fields:
+    name:
+      column: name
+    systemId:
+      column: system_id
+    processId:
+      column: process_id
+    content:
+      column: content
+  filters:
+    byName: "name = :name"
+    byId: "id = :id"
+    byProcessId: "process_id = :processId"
+    bySystemId: "system_id = :systemId"
+
+process:
+  model: process
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+    relativePath:
+      column: relative_path
+    deployDate:
+      column: deploy_date
+    tag:
+      column: tag
+    image:
+      column: image_id
+  filters:
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+
+presentation:
+  model: presentation
+  fields:
+    name:
+      column: name
+    systemId:
+      column: system_id
+    url:
+      column: url
+    version:
+      column: version
+    image:
+      column: image
+  filters:
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+    bySystemIdAndVersion: "system_id = :systemId and version = :version"
+
+operation:
+  model: operation
+  fields:
+    systemId:
+      column: system_id
+    processId:
+      column: process_id
+    name:
+      column: name
+    event_in:
+      column: event_in
+    event_out:
+      column: event_out
+    image:
+      column: image
+    commit:
+      column: commit
+    version:
+      column: version
+    reprocessable:
+      column: reprocessable
+  filters:
+    byProcessId: "process_id = :processId"
+    byId: "id = :id"
+    byEvent: "event_in = :event"
+    byEventAndVersion: "event_in = :event and version = :version"
+    byEventAndVersionReprocessable: "event_in = :event and version = :version and reprocessable is True"
+    bySystemId: "system_id = :systemId"
+    byName: "name = :name"
+    bindingEvent: "event_in = :event or event_out = :event"
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
+
+    bySystemIdAndEventIn: "system_id = :systemId and event_in = :event"
+
+
+processInstance:
+  model: process_instance
+  fields:
+    processId:
+      column: process_id
+    systemId:
+      column: system_id
+    startExecution:
+      column: start_execution
+    referenceDate:
+      column: reference_date
+    status:
+      column: status
+    origin_event_name:
+      column: origin_event_name
+    isFork:
+      column: is_fork
+    baseline:
+      column: baseline
+    scope:
+      column: scope
+  filters:
+    byProcessId: "process_id = :processId"
+    byId: "id = :id"
+    bySystemId: "system_id = :systemId"
+    byOriginEvent: "origin_event_name = :originEvent"
+    executedAfter: "system_id = :systemId and modified >= :date and id <> :instanceId and status = 'finished' and scope in ('execution','reprocessing') order by start_execution"
+
+operationInstance:
+  model: operation_instance
+  fields:
+    processId:
+      column: process_id
+    systemId:
+      column: system_id
+    processInstanceId:
+      column: process_instance_id
+    operationId:
+      column: operation_id
+    status:
+      column: status
+    mustCommit:
+      column: must_commit
+    image:
+      column: image
+    version:
+      column: version
+    eventName:
+      column: event_name
+  filters:
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
+    byProcessInstanceId: " process_instance_id = :processInstanceId"
+    byInstanceIdEventName: " process_instance_id = :processInstanceId and event_name = :eventName"
+    byOperationId: "operation_id = :operationId"
+    byId: "id = :id"
+    byProcessId: "process_id = :processId"
+    bySystemId: "system_id = :systemId"
+
+
+event:
+  model: event
+  fields:
+    systemId:
+      column: system_id
+    name:
+      column: name
+    processId:
+      column: process_id
+    direction:
+      column: direction
+    operationId:
+      column: operation_id
+  filters:
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+    byName: "name = :name"
+    byProcessId: "process_id = :processId"
+
+presentationInstance:
+  model: presentation_instance
+  fields:
+    presentationId:
+      column: presentation_id
+  filters:
+    byId: "id = :id"
+    byPresentationId: "presentation_id = :presentationId"
+
+installedApp:
+  model: installed_apps
+  fields:
+    systemId:
+      column: system_id
+    host:
+      column: host
+    port:
+      column: port
+    name:
+      column: name
+    type:
+      column: type
+  filters:
+    bySystemId: "system_id = :systemId"
+    byId: "id = :id"
+    byName: "name = :name"
+    bySystemIdAndType: "system_id = :systemId and type = :type"
+
