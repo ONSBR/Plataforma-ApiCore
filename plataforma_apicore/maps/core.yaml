@@ -209,10 +209,12 @@ operation:
     byId: "id = :id"
     byEvent: "event_in = :event"
     byEventAndVersion: "event_in = :event and version = :version"
+    byEventAndVersionReprocessable: "event_in = :event and version = :version and reprocessable is True"
     bySystemId: "system_id = :systemId"
     byName: "name = :name"
     bindingEvent: "event_in = :event or event_out = :event"
     byProcessIdAndVersion: "process_id = :processId and version = :version"
+
     bySystemIdAndEventIn: "system_id = :systemId and event_in = :event"
 
 
@@ -273,6 +275,7 @@ operationInstance:
     byId: "id = :id"
     byProcessId: "process_id = :processId"
     bySystemId: "system_id = :systemId"
+
 
 event:
   model: event
