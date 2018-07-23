@@ -243,6 +243,7 @@ processInstance:
     byProcessId: "process_id = :processId"
     byId: "id = :id"
     bySystemId: "system_id = :systemId"
+    bySystemIdOrdered: "system_id = :systemId order by start_execution desc"
     byOriginEvent: "origin_event_name = :originEvent"
     executedAfter: "system_id = :systemId and start_execution > :date and id <> :instanceId and status = 'finished' and scope in ('execution') order by start_execution"
 
