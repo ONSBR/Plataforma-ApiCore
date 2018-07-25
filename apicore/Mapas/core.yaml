@@ -210,7 +210,7 @@ operation:
   filters:
     byProcessId: "process_id = :processId"
     byId: "id = :id"
-    byEvent: "event_in = :event"
+    byEvent: "event_in = :event and version in (select version from "operation" where event_in= :event order by version desc limit 1)"
     byEventAndVersion: "event_in = :event and version = :version"
     byEventAndVersionReprocessable: "event_in = :event and version = :version and reprocessable is True"
     bySystemId: "system_id = :systemId"
