@@ -110,8 +110,10 @@ class Persistence(Component):
                 self.session.add(instance)
             else:
                 instance.modified = obj.modified
+                log.info(scope)
                 if scope == "execution" and not freeze:
                     obj.modified = datetime.utcnow()
+
                 for k, v in o.items():
                     if hasattr(obj, k) and k not in {"rid", "from_id", "branch", "modified", "created_at"}:
                         setattr(obj, k, v)
