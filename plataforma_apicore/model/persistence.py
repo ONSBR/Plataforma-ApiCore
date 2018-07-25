@@ -79,6 +79,8 @@ class Persistence(Component):
         for o in objs:
             _type = o["_metadata"]["type"].lower()
             instance = globals()[_type](**o)
+            instance.modified = datetime.utcnow()
+            instance.created_at = datetime.utcnow()
             self.session.add(instance)
             yield instance
 
@@ -110,12 +112,8 @@ class Persistence(Component):
                 self.session.add(instance)
             else:
                 instance.modified = obj.modified
-                log.info(scope)
                 if scope == "execution" and not freeze:
-                    log.info("new modified date")
                     obj.modified = datetime.utcnow()
-                else:
-                    log.info("keep modified date")
                 for k, v in o.items():
                     if hasattr(obj, k) and k not in {"rid", "from_id", "branch", "modified", "created_at"}:
                         setattr(obj, k, v)
