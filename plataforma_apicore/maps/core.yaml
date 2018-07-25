@@ -140,10 +140,13 @@ map:
       column: process_id
     content:
       column: content
+    version:
+      column: version
   filters:
     byName: "name = :name"
     byId: "id = :id"
     byProcessId: "process_id = :processId"
+    byProcessIdAndVersion: "process_id = :processId and version = :version"
     bySystemId: "system_id = :systemId"
 
 process:

@@ -7,3 +7,5 @@ map:
     - string
   content:
     - text
+  version:
+    - uuid
