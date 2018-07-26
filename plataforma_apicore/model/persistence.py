@@ -87,6 +87,7 @@ class Persistence(Component):
     def update(self, objs,scope):
         for o in objs:
             branch = o["_metadata"].get("branch","master")
+            rid = o["_metadata"].get("rid",None)
             _type = o["_metadata"]["type"].lower()
             freeze = o["_metadata"].get("freeze",False)
             cls = globals()[_type]
@@ -94,10 +95,10 @@ class Persistence(Component):
             if not instance.deleted:
                 instance.deleted = False
             del o['_metadata']
-            obj = self.session.query(cls).filter(cls.id == o["id"]).filter(cls.branch == branch).one_or_none()
+            obj = self.session.query(cls).filter(cls.rid == rid).filter(cls.branch == branch).one_or_none()
             if not obj and branch != "master":
                 #make a copy from master object to branch object
-                obj = self.session.query(cls).filter(cls.id == o["id"]).filter(cls.branch == "master").one()
+                obj = self.session.query(cls).filter(cls.rid == rid).filter(cls.branch == "master").one()
                 setattr(instance,"from_id", obj.rid)
                 setattr(instance,"rid", uuid4())
                 setattr(instance,"branch", branch)
@@ -123,12 +124,13 @@ class Persistence(Component):
         for o in objs:
             _type = o["_metadata"]["type"].lower()
             branch = o["_metadata"].get("branch","master")
+            rid = o["_metadata"].get("rid",None)
             cls = globals()[_type]
             instance = cls(**o)
             if not instance.modified and scope == "execution":
                 instance.modified = datetime.utcnow()
             del o['_metadata']
-            obj = self.session.query(cls).filter(cls.id == o["id"]).filter(cls.branch == branch).one_or_none()
+            obj = self.session.query(cls).filter(cls.rid == rid).filter(cls.branch == branch).one_or_none()
             obj.deleted = True
 
     def is_to_create(self, obj):
