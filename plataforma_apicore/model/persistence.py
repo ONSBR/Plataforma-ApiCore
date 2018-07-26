@@ -148,6 +148,7 @@ class Persistence(Component):
             del o['_metadata']
             obj = self.session.query(cls).filter(cls.id == o["id"]).filter(cls.branch == branch).one_or_none()
             obj.deleted = False
+            yield obj
 
     def is_to_create(self, obj):
         return obj["_metadata"]["changeTrack"] == "create"
