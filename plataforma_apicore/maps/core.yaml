@@ -123,6 +123,7 @@ reproduction:
    start_date:
      column: execution_start_date
  filters:
+   bySystemId: "system_id = :systemId"
    byOriginal: "original_instance_id = :original"
    byInstance: "instance_id = :instance"
    byOwner: "owner = :owner"
