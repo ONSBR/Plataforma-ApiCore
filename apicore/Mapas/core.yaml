@@ -213,12 +213,13 @@ operation:
       column: created_at
   filters:
     byProcessId: "process_id = :processId"
+    byProcessIdOrdered: "process_id = :processId order by created_at desc"
     byId: "id = :id"
     byEvent: "event_in = :event order by created_at desc limit 1"
     byEventAndVersion: "event_in = :event and version = :version"
     byEventAndVersionReprocessable: "event_in = :event and version = :version and reprocessable is True"
     bySystemId: "system_id = :systemId"
-    bySystemIdOrdered: "system_id = :systemId order by created_at"
+    bySystemIdOrdered: "system_id = :systemId order by created_at desc"
     byName: "name = :name"
     bindingEvent: "event_in = :event or event_out = :event order by created_at desc limit 1"
     bindingEventAndVersion: "event_in = :event or event_out = :event and version = :version"
