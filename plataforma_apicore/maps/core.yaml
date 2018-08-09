@@ -209,6 +209,8 @@ operation:
       column: version
     reprocessable:
       column: reprocessable
+    created:
+      column: created_at
   filters:
     byProcessId: "process_id = :processId"
     byId: "id = :id"
@@ -216,6 +218,7 @@ operation:
     byEventAndVersion: "event_in = :event and version = :version"
     byEventAndVersionReprocessable: "event_in = :event and version = :version and reprocessable is True"
     bySystemId: "system_id = :systemId"
+    bySystemIdOrdered: "system_id = :systemId order by created_at"
     byName: "name = :name"
     bindingEvent: "event_in = :event or event_out = :event order by created_at desc limit 1"
     bindingEventAndVersion: "event_in = :event or event_out = :event and version = :version"
