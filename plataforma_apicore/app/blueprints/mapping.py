@@ -39,11 +39,13 @@ def query_map(app_id, entity,):
     reference_date = request.headers.get('Reference-Date')
     version = request.headers.get('Version')
     branch = request.headers.get('Branch', 'master')
-
+    queryS = request.args.to_dict()
+    log.info("DDDDD")
+    log.info(queryS)
     query_service = QueryService(
         reference_date, version, request.session, branch)
     controller = QueryController(
-        app_id, entity, request.args.to_dict(), mapper, query_service)
+        app_id, entity, queryS, mapper, query_service)
 
     return controller.query()
 

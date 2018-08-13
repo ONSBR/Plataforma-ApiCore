@@ -8,6 +8,8 @@ class QueryController:
         self.page = int(query.pop('page', 0))
         self.page_size = int(query.pop('page_size', 0))
         self.query_string = query
+        log.info("CCCCCC")
+        log.info(self.query_string)
         self.mapper = mapper
         self.query_service = query_service
 
