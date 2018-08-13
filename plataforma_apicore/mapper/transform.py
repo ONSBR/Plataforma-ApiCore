@@ -98,6 +98,7 @@ class Transform(Component):
 
     def get_filters(self, app_id, map_name, query_string):
         """ apply query filter on domain model """
+        log.info("A")
         log.info(query_string)
         filters = self.index.get_filters(app_id, map_name)
         log.info(filters)
@@ -114,5 +115,7 @@ class Transform(Component):
             "query": regex.replace("\$\w*!*", filter_clause, parser),
             "params": query_string
         }
+        log.info(result)
+        log.info("B")
         return result
 
