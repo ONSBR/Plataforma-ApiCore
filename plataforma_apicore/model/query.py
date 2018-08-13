@@ -46,7 +46,7 @@ class Query:
         if page and page_size:
             page -= 1
             query = query.slice(page * page_size, page * page_size + page_size)
-
+        log.info(str(query))
         return self.row2dict(query.all(), projection)
 
 
