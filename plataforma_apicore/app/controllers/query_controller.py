@@ -1,5 +1,5 @@
 """ Query Controller """
-import log
+
 
 class QueryController:
     def __init__(self, app_id, entity, query, mapper, query_service):
@@ -8,8 +8,6 @@ class QueryController:
         self.page = int(query.pop('page', 0))
         self.page_size = int(query.pop('page_size', 0))
         self.query_string = query
-        log.info("CCCCCC")
-        log.info(self.query_string)
         self.mapper = mapper
         self.query_service = query_service
 

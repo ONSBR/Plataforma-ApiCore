@@ -1,5 +1,5 @@
 import json
-import log
+
 from mapper.index import Index
 from core.component import Component
 from utils import regex, typing
@@ -98,16 +98,11 @@ class Transform(Component):
 
     def get_filters(self, app_id, map_name, query_string):
         """ apply query filter on domain model """
-        log.info("A")
-        log.info(query_string)
         filters = self.index.get_filters(app_id, map_name)
-        log.info(filters)
         filter_name = query_string.pop('filter', None)
         filter_clause = filters.get(filter_name)
-        log.info(filter_name)
-        log.info(filter_clause)
+
         if not filter_clause:
-            log.info("oops")
             return {}
         parser = lambda g: self.parse_array_param(g, query_string)
         filter_clause = self.remove_unsed_params(query_string, filter_clause)
@@ -115,7 +110,5 @@ class Transform(Component):
             "query": regex.replace("\$\w*!*", filter_clause, parser),
             "params": query_string
         }
-        log.info(result)
-        log.info("B")
         return result
 

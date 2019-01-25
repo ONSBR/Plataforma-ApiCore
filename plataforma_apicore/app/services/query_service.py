@@ -1,5 +1,5 @@
 from model.query import Query
-import log
+
 
 class QueryService:
     def __init__(self, reference_date, version, session, branch='master'):
@@ -12,7 +12,7 @@ class QueryService:
         """ execute a query on domain """
         query = Query(self.reference_date, self.version, self.session, branch=self.branch)
         query.set_query_context(app_id, mapped_entity, entity)
-        log.info(projection)
+
         return query.execute(projection, page=page, page_size=page_size)
 
     def history(self, app_id, mapped_entity, entity, projection, entity_id, version):

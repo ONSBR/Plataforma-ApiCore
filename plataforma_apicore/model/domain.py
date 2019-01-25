@@ -678,7 +678,7 @@ class process(Base, TemporalModelMixin):
 
 class process_instance(Base, TemporalModelMixin):
 
-    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, start_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None,is_fork=None,baseline=None,scope=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, start_execution=None,reference_date=None,status=None,process_id=None,origin_event_name=None,system_id=None,is_fork=None,owner=None,baseline=None,scope=None, _metadata=None, **kwargs):
         self.rid = rid
         self.id = id
         self.deleted = deleted
@@ -690,6 +690,7 @@ class process_instance(Base, TemporalModelMixin):
         self.origin_event_name = origin_event_name
         self.system_id = system_id
         self.is_fork = is_fork
+        self.owner = owner
         self.baseline = baseline
         self.scope = scope
         self._metadata = _metadata
@@ -699,7 +700,7 @@ class process_instance(Base, TemporalModelMixin):
 
     def dict(self):
         return {
-            "start_execution": self.start_execution,"reference_date": self.reference_date,"status": self.status,"process_id": self.process_id,"origin_event_name": self.origin_event_name,"system_id": self.system_id,"is_fork": self.is_fork,"baseline": self.baseline,"scope": self.scope,
+            "start_execution": self.start_execution,"reference_date": self.reference_date,"status": self.status,"process_id": self.process_id,"origin_event_name": self.origin_event_name,"system_id": self.system_id,"is_fork": self.is_fork,"owner": self.owner,"baseline": self.baseline,"scope": self.scope,
             "id": self.id,
             "rid":self.rid,
             "branch":self.branch,
@@ -713,7 +714,7 @@ class process_instance(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified','created_at', 'meta_instance_id', 'from_id', 'branch', 'start_execution','reference_date','status','process_id','origin_event_name','system_id','is_fork','baseline','scope', )
+        fields = ('deleted','modified','created_at', 'meta_instance_id', 'from_id', 'branch', 'start_execution','reference_date','status','process_id','origin_event_name','system_id','is_fork','owner','baseline','scope', )
 
     start_execution = Column(DateTime)
     reference_date = Column(DateTime)
@@ -722,6 +723,7 @@ class process_instance(Base, TemporalModelMixin):
     origin_event_name = Column(String)
     system_id = Column(sap.UUID(as_uuid=True))
     is_fork = Column(Boolean)
+    owner = Column(String)
     baseline = Column(String)
     scope = Column(String)
 

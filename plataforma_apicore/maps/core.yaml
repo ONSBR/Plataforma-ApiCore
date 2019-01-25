@@ -248,8 +248,11 @@ processInstance:
       column: baseline
     scope:
       column: scope
+    owner:
+      column: owner
   filters:
     byProcessId: "process_id = :processId"
+    byOwner: "owner = :owner"
     byId: "id = :id"
     bySystemId: "system_id = :systemId"
     bySystemIdOrdered: "system_id = :systemId order by start_execution desc"
