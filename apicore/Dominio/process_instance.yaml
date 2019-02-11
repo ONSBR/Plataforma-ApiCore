@@ -13,6 +13,8 @@ process_instance:
     - uuid
   is_fork:
     - boolean
+  owner:
+    - string
   baseline:
     - string
   scope:

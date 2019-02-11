@@ -30,7 +30,6 @@ class Query:
 
     def execute(self, projection, page=None, page_size=None):
         query_select = self.build_select(projection)
-        log.info(query_select)
         query = self.session.query(*query_select)
         if self.branch == "all":
             query = query.filter(text(f"deleted is not True"))
@@ -46,7 +45,7 @@ class Query:
         if page and page_size:
             page -= 1
             query = query.slice(page * page_size, page * page_size + page_size)
-        log.info(str(query))
+
         return self.row2dict(query.all(), projection)
 
 
