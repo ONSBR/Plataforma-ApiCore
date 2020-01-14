@@ -58,4 +58,5 @@ class Loader(Component):
             remote_maps = self.build_remote_maps()
         except Exception as expt:
             log.info(str(expt))
+        print(local_maps)
         return local_maps + list(remote_maps)
