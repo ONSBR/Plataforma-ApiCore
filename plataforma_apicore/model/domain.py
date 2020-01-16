@@ -366,7 +366,7 @@ class installed_apps(Base, TemporalModelMixin):
 
 class map(Base, TemporalModelMixin):
 
-    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,name=None,content=None,version=None, _metadata=None, **kwargs):
+    def __init__(self, rid=None, id=None, deleted=False, meta_instance_id=None, system_id=None,process_id=None,name=None,content=None,version=None, _metadata=None,reprocessable = None, **kwargs):
         self.rid = rid
         self.id = id
         self.deleted = deleted
@@ -376,6 +376,7 @@ class map(Base, TemporalModelMixin):
         self.name = name
         self.content = content
         self.version = version
+        self.reprocessable = reprocessable
         self._metadata = _metadata
         self.branch = kwargs.get('branch', 'master')
         self.from_id = kwargs.get('from_id')
@@ -383,7 +384,7 @@ class map(Base, TemporalModelMixin):
 
     def dict(self):
         return {
-            "system_id": self.system_id,"process_id": self.process_id,"name": self.name,"content": self.content,"version": self.version,
+            "system_id": self.system_id,"process_id": self.process_id,"name": self.name,"content": self.content,"version": self.version,"reprocessable": self.reprocessable,
             "id": self.id,
             "rid":self.rid,
             "branch":self.branch,
@@ -397,13 +398,14 @@ class map(Base, TemporalModelMixin):
         return cls.__name__.lower()
 
     class Temporal:
-        fields = ('deleted','modified','created_at', 'meta_instance_id', 'from_id', 'branch', 'system_id','process_id','name','content','version', )
+        fields = ('deleted','modified','created_at', 'meta_instance_id', 'from_id', 'branch', 'system_id','process_id','name','content','version','reprocessable', )
 
     system_id = Column(sap.UUID(as_uuid=True))
     process_id = Column(sap.UUID(as_uuid=True))
     name = Column(String)
     content = Column(Text)
     version = Column(sap.UUID(as_uuid=True))
+    reprocessable = Column(Boolean)
 
     id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)

@@ -144,6 +144,8 @@ map:
       column: content
     version:
       column: version
+    reprocessable:
+      column: reprocessable
   filters:
     byName: "name = :name"
     byId: "id = :id"

@@ -9,3 +9,5 @@ map:
     - text
   version:
     - uuid
+  reprocessable:
+  - boolean
