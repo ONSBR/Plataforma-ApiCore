@@ -6,7 +6,7 @@ operation:
   system_id:
     - uuid
   version:
-    - uuid
+    - string
   event_in:
     - string
   event_out:

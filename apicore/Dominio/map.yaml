@@ -8,4 +8,4 @@ map:
   content:
     - text
   version:
-    - uuid
+    - string
