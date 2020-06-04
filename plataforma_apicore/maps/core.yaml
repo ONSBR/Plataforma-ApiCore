@@ -222,7 +222,8 @@ operation:
     bySystemIdOrdered: "system_id = :systemId order by created_at desc"
     byName: "name = :name"
     bindingEvent: "event_in = :event or event_out = :event order by created_at desc limit 1"
-    bindingEventAndVersion: "event_in = :event or event_out = :event and version = :version"
+    bindingEventList: "(event_in = :event or event_out = :event) order by created_at desc"
+    bindingEventAndVersion: "(event_in = :event or event_out = :event) and version = :version"
     byProcessIdAndVersion: "process_id = :processId and version = :version"
     bySystemIdAndEventIn: "system_id = :systemId and event_in = :event"
 

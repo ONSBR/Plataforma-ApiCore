@@ -403,7 +403,7 @@ class map(Base, TemporalModelMixin):
     process_id = Column(sap.UUID(as_uuid=True))
     name = Column(String)
     content = Column(Text)
-    version = Column(sap.UUID(as_uuid=True))
+    version = Column(String)
 
     id = Column(sap.UUID(as_uuid=True), default=uuid4)
     deleted = Column(sap.BOOLEAN(), default=False)
@@ -456,7 +456,7 @@ class operation(Base, TemporalModelMixin):
     name = Column(String)
     process_id = Column(sap.UUID(as_uuid=True))
     system_id = Column(sap.UUID(as_uuid=True))
-    version = Column(sap.UUID(as_uuid=True))
+    version = Column(String)
     event_in = Column(String)
     event_out = Column(String)
     image = Column(String)
